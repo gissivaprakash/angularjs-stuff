@@ -1,0 +1,20 @@
+{
+  "name": "restangular",
+  "version": "0.8.2",
+  "main": "./dist/restangular.min.js",
+  "description": "Restfull Resources service for AngularJS apps",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mgonto/restangular.git"
+  },
+  "dependencies": {
+    "lodash": "~1.2.0",
+    "angular": "*",
+    "angular-resource": "*"
+  },
+  "ignore": [
+    "node_modules",
+    "components",
+    "lib"
+  ]
+}
