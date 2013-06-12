@@ -6,6 +6,7 @@ https://github.com/angularjsedge/examples.git
 https://github.com/billingstack/billingstack-ui.git
 https://github.com/CaryLandholt/AngularFun.git
 https://github.com/codef0rmer/angular-dragdrop.git
+https://github.com/crosbymichael/dockerui.git
 https://github.com/lavinjj/angularjs-localizationservice.git
 https://github.com/lmc-eu/ngx-library.git
 https://github.com/mgonto/restangular.git
