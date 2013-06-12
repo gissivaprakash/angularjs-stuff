@@ -1,0 +1,19 @@
+/*!
+ * BillingStack
+ *
+ * Copyright 2013 Luis Gervaso<luis@woorea.es>
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * @woorea
+ */
+html {
+	overflow-y: scroll;
+}
+body {
+	padding-top: 60px;
+	padding-bottom: 40px;
+}
+.fit {
+	width: 1px;
+}
