@@ -1,0 +1,13 @@
+https://github.com/angular-ui/bootstrap.git
+https://github.com/angular-ui/ui-calendar.git
+https://github.com/angular-ui/ng-grid.git
+https://github.com/angular-ui/ui-router.git
+https://github.com/angularjsedge/examples.git
+https://github.com/billingstack/billingstack-ui.git
+https://github.com/CaryLandholt/AngularFun.git
+https://github.com/codef0rmer/angular-dragdrop.git
+https://github.com/lavinjj/angularjs-localizationservice.git
+https://github.com/lmc-eu/ngx-library.git
+https://github.com/mgonto/restangular.git
+https://github.com/shyamseshadri/angularjs-book.git
+https://github.com/yearofmoo-articles/AngularJS-Animation-Article.git
