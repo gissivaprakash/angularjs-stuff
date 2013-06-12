@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="localizeApp">
+<head>
+    <title>AngularJS Localization Resource Service</title>
+    <link rel="shortcut icon" type="image/png" href="content/ico/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="content/jquery-ui/jquery-ui-1.9.2.custom.css">
+    <link rel="stylesheet" type="text/css" href="content/bootstrap/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="content/bootstrap/bootstrap-responsive.css">
+    <link rel="stylesheet" type="text/css" href="content/angular-ui/angular-ui.css">
+    <script type="text/javascript" src="components/jquery/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="components/jquery-ui/jquery-ui-1.9.2.custom.js"></script>
+    <script type="text/javascript" src="components/bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="components/angular/angular.js"></script>
+    <script type="text/javascript" src="components/angular-ui/angular-ui.js"></script>
+    <script type="text/javascript" src="components/ui-bootstrap/ui-bootstrap-0.3.0.js"></script>
+    <script type="text/javascript" src="components/ui-bootstrap/ui-bootstrap-tpls-0.3.0.js"></script>
+    <script type="text/javascript" src="components/localize/localize.js"></script>
+    <script type="text/javascript" src="scripts/app.js"></script>
+    <script type="text/javascript" src="scripts/AppController.js"></script>
+    <script type="text/javascript" src="scripts/HomeController.js"></script>
+    <script type="text/javascript" src="scripts/NewPersonController.js"></script>
+    <script type="text/javascript" src="scripts/EditPersonController.js"></script>
+</head>
+<body ng-controller="AppController">
+    <H1 data-i18n="_HomeTitle_"></H1>
+    <div data-i18n="_Greeting_"></div>
+    <div ng-view></div>
+    <hr/>
+    <a href="#" ng-click="setEnglishLanguage()">English</a> | <a href="#" ng-click="setPigLatinLanguage()">PigLatin</a>
+</body>
+</html>
