@@ -14,6 +14,9 @@
   - http://www.yearofmoo.com/2013/05/enhanced-animations-in-angularjs.html (2013.05)
   - http://joelhooks.com/blog/2013/05/22/lessons-learned-kicking-off-an-angularjs-project/ (2013.05)
 
+## Russian:
+  - [Понимание областей видимости или Scope в AngularJS](http://habrahabr.ru/post/182670/)
+  - [Создание огроооомных приложений на AngularJS](http://habrahabr.ru/post/182556/)
 
 ## Books:
   - http://learnangularjs.blogspot.in/
@@ -28,3 +31,5 @@
   - http://pluralsight.com/training/Courses/TableOfContents/angularjs-fundamentals
   - [Re-imagining the browser with AngularJS](http://parleys.com/play/5148922b0364bc17fc56c91b/chapter37/about)
   - [End to End with Angular JS, 2013.05](http://www.youtube.com/watch?v=hqAyiqUs93c)
+
+
