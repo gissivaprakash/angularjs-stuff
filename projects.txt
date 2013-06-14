@@ -20,6 +20,7 @@ https://github.com/lmc-eu/ngx-library.git
 https://github.com/petebacondarwin/AngularJS-Directives-Presentation.git
 https://github.com/mgonto/restangular.git
 https://github.com/monospaced/angular-qrcode.git
+https://github.com/revolunet/rn-lazy.git
 https://github.com/shyamseshadri/angularjs-book.git
 https://github.com/sullerandras/SVG-Sequence-Diagram.git
 https://github.com/tanz-sullamora/angular-i18n.git
