@@ -1,0 +1,39 @@
+<div>
+    <div class="page-header">
+        <h1>Cambio climático
+            <small>Emisión de gases</small>
+        </h1>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span10 offset2">
+                <!--Sidebar content-->
+                <gh-visualization val="data"></gh-visualization>
+            </div>
+            <div class="span8 offset2">
+                <!--Body content-->
+                <form class="form-inline well well-large">
+                    <fieldset>
+                        <legend>Filtros</legend>
+                        <label for="min">Inicio (año)</label>
+                        <input type="number" ng-model="options.year_min" ng-change="processData()" id="min" class="span2" />
+                        <label for="max">Fin (año)</label>
+                        <input type="number" ng-model="options.year_max" ng-change="processData()" id="max" class="span2" />
+                        <label for="iso2">Código de país</label>
+                        <select ng-model="options.iso2" id="iso2" ng-options="i for i in source.iso2" ng-change="processData()" class="span2"></select>
+                        <div class="control-group">
+                            <label class="checkbox">
+                                <input type="checkbox" ng-model="options.co2" ng-change="processData()">Dióxido de carbono</label>
+                            <label class="checkbox">
+                                <input type="checkbox" ng-model="options.nox" ng-change="processData()">Óxido nitroso</label>
+                            <label class="checkbox">
+                                <input type="checkbox" ng-model="options.met" ng-change="processData()">Metano</label>
+                            <label class="checkbox">
+                                <input type="checkbox" ng-model="options.other" ng-change="processData()">Otros</label>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
