@@ -11,6 +11,7 @@ https://github.com/btford/ngmin.git
 https://github.com/CaryLandholt/AngularFun.git
 https://github.com/codef0rmer/angular-dragdrop.git
 https://github.com/crosbymichael/dockerui.git
+https://github.com/diesire/gasviz.git
 https://github.com/dump247/angular.tree.git
 https://github.com/fullscale/dangle.git
 https://github.com/lavinjj/angularjs-localizationservice.git
