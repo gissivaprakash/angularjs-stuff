@@ -33,8 +33,7 @@
   - [End to End with Angular JS, 2013.05](http://www.youtube.com/watch?v=hqAyiqUs93c)
 
 
-
-<!-- PROJECTS_LIST -->
+<!-- PROJECTS_LIST_START -->
     angular-app/angular-app:
       Reference application for AngularJS
        329 commits, 734 stars, 184 forks
