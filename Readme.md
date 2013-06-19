@@ -41,23 +41,23 @@
 <!-- PROJECTS_LIST_START -->
     angular-app/angular-app:
       Reference application for AngularJS
-       330 commits, 745 stars, 188 forks
+       330 commits, 758 stars, 195 forks
 
     angular-ui/bootstrap:
       Native AngularJS (Angular) directives for Twitter's Bootstrap. Small footprint (5kB gzipped!), no 3rd party JS dependencies (jQuery, bootstrap JS) required!
-       259 commits, 1,292 stars, 553 forks
+       259 commits, 1,317 stars, 568 forks
 
     angular-ui/ui-calendar:
       A complete AngularJS directive for the Arshaw FullCalendar.
-       23 commits, 26 stars, 19 forks
+       23 commits, 27 stars, 19 forks
 
     angular-ui/ng-grid:
       Angular Data Grid
-       827 commits, 391 stars, 146 forks
+       827 commits, 396 stars, 154 forks
 
     angular-ui/ui-router:
       UI-Router for Nested Routing by the AngularUI Team!
-       120 commits, 542 stars, 70 forks
+       120 commits, 560 stars, 73 forks
 
     angularjsedge/examples:
       Examples from the book Developing an AngularJS Edge, by Christopher Hiller
@@ -69,7 +69,7 @@
 
     BinaryMuse/ngInfiniteScroll:
       Infinite Scrolling for AngularJS
-       47 commits, 304 stars, 31 forks
+       47 commits, 311 stars, 32 forks
 
     blesh/TechFest-2013-AngularJS-Talk:
 
@@ -77,19 +77,19 @@
 
     btford/ngmin:
       AngularJS Pre-minifier
-       54 commits, 248 stars, 10 forks
+       54 commits, 249 stars, 12 forks
 
     CaryLandholt/AngularFun:
       AngularJS Reference Architecture
-       224 commits, 368 stars, 74 forks
+       224 commits, 372 stars, 76 forks
 
     codef0rmer/angular-dragdrop:
       Drag and Drop for AngularJS (with Animation)
-       50 commits, 88 stars, 17 forks
+       52 commits, 88 stars, 21 forks
 
     crosbymichael/dockerui:
       A web interface for docker.  http://docker.io
-       27 commits, 110 stars, 3 forks
+       27 commits, 127 stars, 4 forks
 
     danielemoraschi/android-addressbook:
       Android addressbook replica with AngularJs
@@ -105,11 +105,11 @@
 
     fullscale/dangle:
       A set of AngularJS directives that provide common D3 visualizations for elasticsearch
-       15 commits, 196 stars, 15 forks
+       15 commits, 198 stars, 16 forks
 
     lavinjj/angularjs-localizationservice:
       AngularJS Resource Localization Service
-       24 commits, 62 stars, 13 forks
+       24 commits, 63 stars, 14 forks
 
     lithiumtech/angular-treemap:
       An AngularJS directive for a D3 treemap.
@@ -125,7 +125,7 @@
 
     mgonto/restangular:
       AngularJS service to handle Rest API Restful Resources properly and easily
-       228 commits, 814 stars, 48 forks
+       230 commits, 836 stars, 48 forks
 
     monospaced/angular-qrcode:
       QR Code elements for AngularJS.
@@ -137,11 +137,11 @@
 
     shyamseshadri/angularjs-book:
       Examples and Code snippets from the AngularJS O'Reilly book
-       12 commits, 152 stars, 62 forks
+       12 commits, 157 stars, 64 forks
 
     sullerandras/SVG-Sequence-Diagram:
       Realtime SVG Sequence Diagram Drawer With AngularJS
-       15 commits, 30 stars, 7 forks
+       15 commits, 31 stars, 7 forks
 
     tanz-sullamora/angular-i18n:
       Localization for AngularJS
@@ -149,11 +149,11 @@
 
     trochette/Angular-Design-Patterns-Best-Practices:
       Slideshow from session done @opencode and @MagmaConf, built with AngularJS using best practices expressed in the presentation.
-       31 commits, 42 stars, 10 forks
+       31 commits, 43 stars, 10 forks
 
     twilson63/ngUpload:
       An AngularJS Service for uploading files using iframe
-       63 commits, 97 stars, 32 forks
+       63 commits, 99 stars, 33 forks
 
     qloo/angular-authentication:
       An authentication module for AngularJS
@@ -161,5 +161,5 @@
 
     yearofmoo-articles/AngularJS-Animation-Article:
 
-       11 commits, 63 stars, 24 forks
+       11 commits, 64 stars, 24 forks
 <!-- PROJECTS_LIST_END -->
