@@ -47,13 +47,13 @@
       Native AngularJS (Angular) directives for Twitter's Bootstrap. Small footprint (5kB gzipped!), no 3rd party JS dependencies (jQuery, bootstrap JS) required!
        279 commits, 1,388 stars, 587 forks
 
-    angular-ui/ui-calendar:
-      A complete AngularJS directive for the Arshaw FullCalendar.
-       23 commits, 28 stars, 25 forks
-
     angular-ui/ng-grid:
       Angular Data Grid
        845 commits, 408 stars, 162 forks
+
+    angular-ui/ui-calendar:
+      A complete AngularJS directive for the Arshaw FullCalendar.
+       23 commits, 28 stars, 25 forks
 
     angular-ui/ui-router:
       UI-Router for Nested Routing by the AngularUI Team!
@@ -119,10 +119,6 @@
       Extension library for AngularJS projects
        139 commits, 32 stars, 9 forks
 
-    petebacondarwin/AngularJS-Directives-Presentation:
-
-       4 commits, 23 stars, 7 forks
-
     mgonto/restangular:
       AngularJS service to handle Rest API Restful Resources properly and easily
        249 commits, 877 stars, 56 forks
@@ -130,6 +126,14 @@
     monospaced/angular-qrcode:
       QR Code elements for AngularJS.
        10 commits, 7 stars, 0 forks
+
+    petebacondarwin/AngularJS-Directives-Presentation:
+
+       4 commits, 23 stars, 7 forks
+
+    qloo/angular-authentication:
+      An authentication module for AngularJS
+       47 commits, 29 stars, 2 forks
 
     revolunet/rn-lazy:
       AngularJS lazy loader for images
@@ -154,10 +158,6 @@
     twilson63/ngUpload:
       An AngularJS Service for uploading files using iframe
        66 commits, 109 stars, 33 forks
-
-    qloo/angular-authentication:
-      An authentication module for AngularJS
-       47 commits, 29 stars, 2 forks
 
     yearofmoo-articles/AngularJS-Animation-Article:
 
