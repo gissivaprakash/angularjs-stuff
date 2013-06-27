@@ -1,7 +1,7 @@
 https://github.com/angular-app/angular-app.git
 https://github.com/angular-ui/bootstrap.git
-https://github.com/angular-ui/ui-calendar.git
 https://github.com/angular-ui/ng-grid.git
+https://github.com/angular-ui/ui-calendar.git
 https://github.com/angular-ui/ui-router.git
 https://github.com/angularjsedge/examples.git
 https://github.com/billingstack/billingstack-ui.git
@@ -18,14 +18,14 @@ https://github.com/fullscale/dangle.git
 https://github.com/lavinjj/angularjs-localizationservice.git
 https://github.com/lithiumtech/angular-treemap.git
 https://github.com/lmc-eu/ngx-library.git
-https://github.com/petebacondarwin/AngularJS-Directives-Presentation.git
 https://github.com/mgonto/restangular.git
 https://github.com/monospaced/angular-qrcode.git
+https://github.com/petebacondarwin/AngularJS-Directives-Presentation.git
+https://github.com/qloo/angular-authentication.git
 https://github.com/revolunet/rn-lazy.git
 https://github.com/shyamseshadri/angularjs-book.git
 https://github.com/sullerandras/SVG-Sequence-Diagram.git
 https://github.com/tanz-sullamora/angular-i18n.git
 https://github.com/trochette/Angular-Design-Patterns-Best-Practices.git
 https://github.com/twilson63/ngUpload.git
-https://github.com/qloo/angular-authentication.git
 https://github.com/yearofmoo-articles/AngularJS-Animation-Article.git
