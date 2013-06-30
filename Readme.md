@@ -29,6 +29,7 @@
   - http://www.manning.com/bford/
 
 ## Videos:
+  - [Introduction to Angular JS, from David Mosher, 2013.05](http://www.youtube.com/watch?v=8ILQOFAgaXE&feature=youtu.be)
   - http://www.egghead.io/
   - http://tekpub.com/productions/angular
   - http://www.codeschool.com/code_tv/angularjs-part-1
