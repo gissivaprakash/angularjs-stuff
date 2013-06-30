@@ -15,6 +15,7 @@ https://github.com/danielemoraschi/android-addressbook.git
 https://github.com/diesire/gasviz.git
 https://github.com/dump247/angular.tree.git
 https://github.com/fullscale/dangle.git
+https://github.com/jmcunningham/AngularJS-Learning.git
 https://github.com/lavinjj/angularjs-localizationservice.git
 https://github.com/lithiumtech/angular-treemap.git
 https://github.com/lmc-eu/ngx-library.git
