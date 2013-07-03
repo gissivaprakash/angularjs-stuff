@@ -2,6 +2,7 @@
 
 
 ## Articles:
+  - [A better way to learn AngularJS, thinkster.io](http://www.thinkster.io/)
   - https://github.com/jmcunningham/AngularJS-Learning
   - https://github.com/kahlil/angular-resources
 
