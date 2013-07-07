@@ -113,6 +113,10 @@
       A bunch of links to blog posts, articles, videos, etc for learning AngularJS
        87 commits, last change: 2013-07-02 12:31:47, 2,829 stars, 249 forks
 
+    JohnAmican/youski:
+      Youtube Radio
+       7 commits, last change: 2013-07-07 12:22:33, 1 stars, 0 forks
+
     lavinjj/angularjs-localizationservice:
       AngularJS Resource Localization Service
        24 commits, last change: 2013-05-08 21:03:41, 68 stars, 18 forks
