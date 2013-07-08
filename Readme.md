@@ -7,6 +7,7 @@
   - https://github.com/kahlil/angular-resources
 
   - [AngularJS: 6 Common Pitfalls Using Scopes, 2013.04](http://thenittygritty.co/angularjs-pitfalls-using-scopes)
+  - [How to create (singleton) AngularJS services in 4 different ways, 2013.03.16](http://blog.jdriven.com/2013/03/how-to-create-singleton-angularjs-services-in-4-different-ways/)
   - [Proposed AngularJS Project structure, 2013.05](http://www.blogeek.com.ar/2013/05/18/proposed-angulars-project-structure/)
   - [CheatSheet](http://www.cheatography.com/proloser/cheat-sheets/angularjs/)
   - [Code Organization in Large AngularJS and JavaScript Applications, 2013.04](http://cliffmeyers.com/blog/2013/4/21/code-organization-angularjs-javascript)
