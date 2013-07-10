@@ -44,23 +44,23 @@
 <!-- PROJECTS_LIST_START -->
     angular-app/angular-app:
       Reference application for AngularJS
-       337 commits, last change: 2013-06-28 15:03:20, 836 stars, 210 forks
+       340 commits, last change: 2013-07-07 11:09:02, 875 stars, 221 forks
 
     angular-ui/bootstrap:
       Native AngularJS (Angular) directives for Twitter's Bootstrap. Small footprint (5kB gzipped!), no 3rd party JS dependencies (jQuery, bootstrap JS) required!
-       296 commits, last change: 2013-07-02 04:33:31, 1,464 stars, 646 forks
+       303 commits, last change: 2013-07-08 12:45:50, 1,530 stars, 694 forks
 
     angular-ui/ng-grid:
       Angular Data Grid
-       891 commits, last change: 2013-07-01 21:50:27, 420 stars, 169 forks
+       894 commits, last change: 2013-07-06 13:52:51, 435 stars, 180 forks
 
     angular-ui/ui-calendar:
       A complete AngularJS directive for the Arshaw FullCalendar.
-       28 commits, last change: 2013-06-30 15:04:30, 32 stars, 29 forks
+       31 commits, last change: 2013-07-05 19:15:47, 35 stars, 32 forks
 
     angular-ui/ui-router:
       UI-Router for Nested Routing by the AngularUI Team!
-       133 commits, last change: 2013-07-01 22:15:42, 631 stars, 93 forks
+       135 commits, last change: 2013-07-09 12:15:30, 681 stars, 96 forks
 
     angularjsedge/examples:
       Examples from the book Developing an AngularJS Edge, by Christopher Hiller
@@ -68,11 +68,11 @@
 
     billingstack/billingstack-ui:
       BillingStack UI (AngularJS 100% Client Side)
-       25 commits, last change: 2013-06-24 11:41:49, 1 stars, 1 forks
+       26 commits, last change: 2013-07-03 02:39:01, 1 stars, 1 forks
 
     BinaryMuse/ngInfiniteScroll:
       Infinite Scrolling for AngularJS
-       47 commits, last change: 2013-06-03 11:35:32, 330 stars, 34 forks
+       47 commits, last change: 2013-06-03 11:35:32, 333 stars, 36 forks
 
     blesh/TechFest-2013-AngularJS-Talk:
 
@@ -80,19 +80,19 @@
 
     btford/ngmin:
       AngularJS Pre-minifier
-       56 commits, last change: 2013-07-01 17:23:42, 269 stars, 13 forks
+       56 commits, last change: 2013-07-01 17:23:42, 277 stars, 15 forks
 
     CaryLandholt/AngularFun:
       AngularJS Reference Architecture
-       224 commits, last change: 2013-05-26 22:04:06, 383 stars, 82 forks
+       224 commits, last change: 2013-05-26 22:04:06, 389 stars, 83 forks
 
     codef0rmer/angular-dragdrop:
       Drag and Drop for AngularJS (with Animation)
-       54 commits, last change: 2013-06-23 08:02:14, 104 stars, 26 forks
+       54 commits, last change: 2013-06-23 08:02:14, 146 stars, 29 forks
 
     crosbymichael/dockerui:
       A web interface for docker. http://docker.io
-       54 commits, last change: 2013-06-23 19:32:50, 148 stars, 8 forks
+       54 commits, last change: 2013-06-23 19:32:50, 163 stars, 10 forks
 
     danielemoraschi/android-addressbook:
       Android addressbook replica with AngularJs
@@ -100,23 +100,23 @@
 
     diesire/gasviz:
       AngularJs + 3Djs test
-       3 commits, last change: 2013-05-19 19:18:49, 0 stars, 0 forks
+       3 commits, last change: , 0 stars, 0 forks
 
     dump247/angular.tree:
       Tree widget for angularjs
-       20 commits, last change: 2013-01-23 19:14:08, 25 stars, 13 forks
+       20 commits, last change: 2013-01-23 19:14:08, 27 stars, 13 forks
 
     fullscale/dangle:
       A set of AngularJS directives that provide common D3 visualizations for elasticsearch
-       15 commits, last change: 2013-03-04 06:31:32, 206 stars, 19 forks
+       15 commits, last change: 2013-03-04 06:31:32, 213 stars, 21 forks
 
     jmcunningham/AngularJS-Learning:
       A bunch of links to blog posts, articles, videos, etc for learning AngularJS
-       87 commits, last change: 2013-07-02 12:31:47, 2,829 stars, 249 forks
+       90 commits, last change: 2013-07-08 05:47:59, 2,910 stars, 262 forks
 
     JohnAmican/youski:
       Youtube Radio
-       7 commits, last change: 2013-07-07 12:22:33, 1 stars, 0 forks
+       7 commits, last change: 2013-07-07 11:56:46, 1 stars, 0 forks
 
     lavinjj/angularjs-localizationservice:
       AngularJS Resource Localization Service
@@ -128,11 +128,11 @@
 
     lmc-eu/ngx-library:
       Extension library for AngularJS projects
-       141 commits, last change: 2013-07-02 09:27:39, 32 stars, 9 forks
+       141 commits, last change: 2013-07-02 09:27:39, 34 stars, 9 forks
 
     mgonto/restangular:
       AngularJS service to handle Rest API Restful Resources properly and easily
-       265 commits, last change: 2013-06-28 15:06:23, 946 stars, 60 forks
+       274 commits, last change: 2013-07-10 07:06:32, 1,004 stars, 63 forks
 
     monospaced/angular-qrcode:
       QR Code elements for AngularJS.
@@ -144,7 +144,7 @@
 
     qloo/angular-authentication:
       An authentication module for AngularJS
-       47 commits, last change: 2013-05-10 19:18:34, 29 stars, 2 forks
+       47 commits, last change: 2013-05-10 19:18:34, 31 stars, 3 forks
 
     revolunet/rn-lazy:
       AngularJS lazy loader for images
@@ -152,25 +152,25 @@
 
     shyamseshadri/angularjs-book:
       Examples and Code snippets from the AngularJS O'Reilly book
-       12 commits, last change: 2013-05-12 23:51:36, 176 stars, 86 forks
+       12 commits, last change: 2013-05-12 23:51:36, 190 stars, 92 forks
 
     sullerandras/SVG-Sequence-Diagram:
       Realtime SVG Sequence Diagram Drawer With AngularJS
-       15 commits, last change: 2012-12-09 22:33:40, 31 stars, 7 forks
+       15 commits, last change: 2012-12-09 22:33:40, 33 stars, 7 forks
 
     tanz-sullamora/angular-i18n:
       Localization for AngularJS
-       12 commits, last change: 2013-05-27 02:18:00, 17 stars, 5 forks
+       12 commits, last change: 2013-05-27 02:18:00, 17 stars, 6 forks
 
     trochette/Angular-Design-Patterns-Best-Practices:
       Slideshow from session done @opencodeqc and @MagmaConf, built with AngularJS using best practices expressed in the presentation.
-       31 commits, last change: 2013-06-06 09:02:19, 45 stars, 10 forks
+       32 commits, last change: 2013-07-08 06:07:54, 51 stars, 12 forks
 
     twilson63/ngUpload:
       An AngularJS Service for uploading files using iframe
-       66 commits, last change: 2013-06-20 08:18:36, 112 stars, 33 forks
+       66 commits, last change: 2013-06-20 08:18:36, 114 stars, 34 forks
 
     yearofmoo-articles/AngularJS-Animation-Article:
 
-       11 commits, last change: 2013-05-24 05:41:47, 73 stars, 26 forks
+       11 commits, last change: 2013-05-24 05:41:47, 74 stars, 29 forks
 <!-- PROJECTS_LIST_END -->
