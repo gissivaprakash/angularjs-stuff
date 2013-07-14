@@ -6,6 +6,7 @@
   - https://github.com/jmcunningham/AngularJS-Learning
   - https://github.com/kahlil/angular-resources
 
+  - [ANGULARJS WEBSOCKET SERVICE EXAMPLE, 23 Apr 2013](http://clintberry.com/2013/angular-js-websocket-service/)
   - [AngularJS: 6 Common Pitfalls Using Scopes, 2013.04](http://thenittygritty.co/angularjs-pitfalls-using-scopes)
   - [How to create (singleton) AngularJS services in 4 different ways, 2013.03.16](http://blog.jdriven.com/2013/03/how-to-create-singleton-angularjs-services-in-4-different-ways/)
   - [Proposed AngularJS Project structure, 2013.05](http://www.blogeek.com.ar/2013/05/18/proposed-angulars-project-structure/)
