@@ -123,6 +123,10 @@
       AngularJS Resource Localization Service
        24 commits, last change: 2013-05-08 21:03:41, 68 stars, 18 forks
 
+    lgsilver/angles:
+      An angular.js wrapper for Chart.js
+       9 commits, last change: 2013-07-17 20:08:24, 175 stars, 12 forks
+
     lithiumtech/angular-treemap:
       An AngularJS directive for a D3 treemap.
        2 commits, last change: 2013-06-06 18:04:20, 2 stars, 0 forks
