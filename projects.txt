@@ -32,3 +32,4 @@ https://github.com/tanz-sullamora/angular-i18n.git
 https://github.com/trochette/Angular-Design-Patterns-Best-Practices.git
 https://github.com/twilson63/ngUpload.git
 https://github.com/yearofmoo-articles/AngularJS-Animation-Article.git
+https://github.com/joshdmiller/ng-boilerplate.git
