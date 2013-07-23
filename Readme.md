@@ -119,6 +119,10 @@
       Youtube Radio
        7 commits, last change: 2013-07-07 11:56:46, 1 stars, 0 forks
 
+    joshdmiller/ng-boilerplate:
+      A boilerplate template for new AngularJS projects.
+       70 commits, last change: 2013-06-25 02:26:37, 515 stars, 117 forks
+
     lavinjj/angularjs-localizationservice:
       AngularJS Resource Localization Service
        24 commits, last change: 2013-05-08 21:03:41, 68 stars, 18 forks
