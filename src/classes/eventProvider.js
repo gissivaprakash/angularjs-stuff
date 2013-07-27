@@ -36,11 +36,13 @@
             //Fix for FireFox. Instead of using jQuery on('dragstart', function) on find, we have to use addEventListeners for each column.
             var columns = grid.$root.find('.ngHeaderSortColumn'); //have to iterate if using addEventListener
             angular.forEach(columns, function(col){
-                col.setAttribute('draggable', 'true');
-                //jQuery 'on' function doesn't have  dataTransfer as part of event in handler unless added to event props, which is not recommended
-                //See more here: http://api.jquery.com/category/events/event-object/
-                if (col.addEventListener) { //IE8 doesn't have drag drop or event listeners
-                    col.addEventListener('dragstart', self.dragStart);
+                if(col.className && col.className.indexOf("ngHeaderSortColumn") !== -1){
+                    col.setAttribute('draggable', 'true');
+                    //jQuery 'on' function doesn't have  dataTransfer as part of event in handler unless added to event props, which is not recommended
+                    //See more here: http://api.jquery.com/category/events/event-object/
+                    if (col.addEventListener) { //IE8 doesn't have drag drop or event listeners
+                        col.addEventListener('dragstart', self.dragStart);
+                    }
                 }
             });
             if (navigator.userAgent.indexOf("MSIE") !== -1){
@@ -164,10 +166,9 @@
             $scope.columns.splice(self.colToMove.col.index, 1);
             $scope.columns.splice(headerScope.col.index, 0, self.colToMove.col);
             grid.fixColumnIndexes();
-            // Finally, rebuild the CSS styles.
-            domUtilityService.BuildStyles($scope, grid, true);
             // clear out the colToMove object
             self.colToMove = undefined;
+            domUtilityService.digest($scope);
         }
     };
 
@@ -182,13 +183,24 @@
             domUtilityService.numberOfGrids++;
         } else {
             grid.$viewport.attr('tabIndex', grid.config.tabIndex);
-        }// resize on window resize
-        $(window).resize(function() {
-            domUtilityService.RebuildGrid($scope,grid);
+        }
+        // resize on window resize
+        var windowThrottle;
+        $(window).resize(function(){
+            clearTimeout(windowThrottle);
+            windowThrottle = setTimeout(function() {
+                //in function for IE8 compatibility
+                domUtilityService.RebuildGrid($scope,grid);
+            }, 100);
         });
         // resize on parent resize as well.
+        var parentThrottle;
         $(grid.$root.parent()).on('resize', function() {
-            domUtilityService.RebuildGrid($scope, grid);
+            clearTimeout(parentThrottle);
+            parentThrottle = setTimeout(function() {
+                //in function for IE8 compatibility
+                domUtilityService.RebuildGrid($scope,grid);
+            }, 100);
         });
     };
     // In this example we want to assign grid events.

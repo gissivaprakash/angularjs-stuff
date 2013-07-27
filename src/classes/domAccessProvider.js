@@ -4,7 +4,7 @@ var ngDomAccessProvider = function (grid) {
 
 };
 
-var changeUserSelect = function (elm, value) {
+ngDomAccessProvider.prototype.changeUserSelect = function (elm, value) {
     elm.css({
         '-webkit-touch-callout': value,
         '-webkit-user-select': value,
@@ -14,16 +14,9 @@ var changeUserSelect = function (elm, value) {
         'user-select': value
     });
 };
-
-ngDomAccessProvider.prototype.selectInputElement = function (elm) {
-    var node = elm.nodeName.toLowerCase();
-    if (node === 'input' || node === 'textarea') {
-        elm.select();
-    }
-};
 ngDomAccessProvider.prototype.focusCellElement = function ($scope, index) { 
     if ($scope.selectionProvider.lastClickedRow) {
-        var columnIndex = index !== undefined ? index : previousColumn;
+        var columnIndex = index !== undefined ? index : this.previousColumn;
         var elm = $scope.selectionProvider.lastClickedRow.clone ? $scope.selectionProvider.lastClickedRow.clone.elm : $scope.selectionProvider.lastClickedRow.elm;
         if (columnIndex !== undefined && elm) {
             var columns = angular.element(elm[0].children).filter(function () { return this.nodeType !== 8; }); //Remove html comments for IE8
@@ -32,21 +25,22 @@ ngDomAccessProvider.prototype.focusCellElement = function ($scope, index) {
                 i = 1; //don't want to focus on checkbox
             }
             if (columns[i]) {
-                columns[i].children[0].focus();
+                columns[i].children[1].children[0].focus();
             }
-            previousColumn = columnIndex;
+            this.previousColumn = columnIndex;
         }
     }
 };
 ngDomAccessProvider.prototype.selectionHandlers = function ($scope, elm) {
     var doingKeyDown = false;
+    var self = this;
     elm.bind('keydown', function (evt) {
         if (evt.keyCode === 16) { //shift key
-            changeUserSelect(elm, 'none', evt);
+            self.changeUserSelect(elm, 'none', evt);
             return true;
         } else if (!doingKeyDown) {
             doingKeyDown = true;
-            var ret = ngMoveSelectionHandler($scope, elm, evt, this.grid);
+            var ret = ngMoveSelectionHandler($scope, elm, evt, self.grid);
             doingKeyDown = false;
             return ret;
         }
@@ -54,7 +48,7 @@ ngDomAccessProvider.prototype.selectionHandlers = function ($scope, elm) {
     });
     elm.bind('keyup', function (evt) {
         if (evt.keyCode === 16) { //shift key
-            changeUserSelect(elm, 'text', evt);
+            self.changeUserSelect(elm, 'text', evt);
         }
         return true;
     });
