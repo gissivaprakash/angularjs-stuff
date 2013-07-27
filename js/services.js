@@ -27,8 +27,8 @@ angular.module('dockerui.services', ['ngResource'])
             create :{method: 'POST', params: {action:'create'}},
             insert :{method: 'POST', params: {id: '@id', action:'insert'}},
             push :{method: 'POST', params: {id: '@id', action:'push'}},
-            tag :{method: 'POST', params: {id: '@id', action:'tag'}},
-            delete :{id: '@id', method: 'DELETE'}
+            tag :{method: 'POST', params: {id: '@id', action:'tag', force: 0, repo: '@repo'}},
+            remove :{method: 'DELETE', params: {id: '@id'}, isArray: true}
         });
     })
     .factory('Docker', function($resource, Settings) {
@@ -53,11 +53,49 @@ angular.module('dockerui.services', ['ngResource'])
             get: {method: 'GET'}
         });
     })
-    .factory('Settings', function(DOCKER_ENDPOINT, DOCKER_API_VERSION) {
+    .factory('Settings', function(DOCKER_ENDPOINT, DOCKER_PORT, DOCKER_API_VERSION, UI_VERSION) {
+        var url = DOCKER_ENDPOINT;
+        if (DOCKER_PORT) {
+            url = url + DOCKER_PORT + '\\' + DOCKER_PORT;
+        }
         return {
             displayAll: false,
             endpoint: DOCKER_ENDPOINT,
             version: DOCKER_API_VERSION,
-            url: DOCKER_ENDPOINT + DOCKER_API_VERSION
-        };    
+            rawUrl: DOCKER_ENDPOINT + DOCKER_PORT + '/' + DOCKER_API_VERSION,
+            uiVersion: UI_VERSION,
+            url: url
+        };
+    })
+    .factory('ViewSpinner', function() {
+        var spinner = new Spinner();
+        var target = document.getElementById('view');
+
+       return {
+          spin: function() { spinner.spin(target); },
+          stop: function() { spinner.stop(); }
+       };
+    })
+    .factory('Messages', function($rootScope) {
+        return {
+           event: 'messageSend',
+           send: function(msg) {
+              $rootScope.$broadcast('messageSend', msg);
+           }
+        };
+    })
+    .factory('Dockerfile', function(Settings) {
+        var url = Settings.rawUrl  + '/build';
+        return {
+           build: function(file, callback) {
+              var data = new FormData();
+              var dockerfile = new Blob([file], { type: 'text/text' });
+              data.append('Dockerfile', dockerfile);
+
+              var request = new XMLHttpRequest();
+              request.onload = callback;
+              request.open('POST', url);
+              request.send(data);
+           }
+        };
     });
