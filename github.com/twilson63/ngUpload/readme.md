@@ -2,7 +2,7 @@
 
 An AngularJS file upload directive.  
 
-## 0.3.6 - for updates see CHANGELOG.md
+## 0.3.11 - for updates see CHANGELOG.md
 
 ``` html
    <form ng-upload action="/upload-full-form">
@@ -15,7 +15,7 @@ An AngularJS file upload directive.
            <input type="text" name="gender" ng-model="gender" />
        </p>
        <p>
-           <label>Favourite Color:</label>
+           <label>Favorite Color:</label>
            <input type="text" name="color" ng-model="color"/>
        </p>
        <p>
@@ -24,7 +24,7 @@ An AngularJS file upload directive.
        </p>
        <p>
            <input type="submit" class="btn" value="Submit" 
-             upload-submit="uploadComplete(contents, completed)" />
+             upload-submit="uploadComplete(content, completed)" />
        </p>
    </form>
    <div class="alert alert-info">Server Response: {{response | json}}</div>
@@ -142,6 +142,21 @@ angular.module('app', ['ngUpload'])
 });
 ```
 
+## Directive Options
+
+### ngUpload
+
+* `upload-options-rails-csrf`: Turns on support for [Rails' CSRF](http://guides.rubyonrails.org/security.html#cross-site-request-forgery-csrf) 
+                               by adding a hidden form field with the csrf token.
+
+### uploadSubmit
+
+* `upload-options-enable-controls`: Whether to enable the submit button when uploading forms.
+* `upload-options-convert-hidden`: Set the value of hidden inputs to their `ng-model` attribute when the form is submitted.
+
+
+
+
 ## Example
 
 Example of forms that posts to NodeJS server are now included under the [/examples](https://github.com/twilson63/ngUpload/tree/master/examples) folder.
@@ -196,6 +211,8 @@ please use the following style guidelines
 * cristianocd (https://github.com/cristianocd)
 * Evgeniy Zatsepin (https://github.com/dizzy7)
 * Chris Tesene (https://github.com/ctesene)
+* denyo (https://github.com/denyo)
+* mguymon (https://github.com/mguymon)
 
 ## Thanks
 
