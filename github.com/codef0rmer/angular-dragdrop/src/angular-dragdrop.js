@@ -22,7 +22,7 @@
  * Implementing Drag and Drop functionality in AngularJS is easier than ever.
  * Demo: http://codef0rmer.github.com/angular-dragdrop/
  *
- * @version 1.0.1
+ * @version 1.0.2
  *
  * (c) 2013 Amit Gharat a.k.a codef0rmer <amit.2006.it@gmail.com> - amitgharat.wordpress.com
  */
@@ -195,7 +195,7 @@ var jqyoui = angular.module('ngDragDrop', []).service('ngDragDropService', ['$ti
       require: '?jqyouiDroppable',
       restrict: 'A',
       link: function(scope, element, attrs) {
-        var dragSettings;
+        var dragSettings, zIndex;
         var updateDraggable = function(newValue, oldValue) {
           if (newValue) {
             dragSettings = scope.$eval(element.attr('jqyoui-draggable')) || [];
@@ -204,11 +204,13 @@ var jqyoui = angular.module('ngDragDrop', []).service('ngDragDropService', ['$ti
               .draggable(scope.$eval(attrs.jqyouiOptions) || {})
               .draggable({
                 start: function(event, ui) {
+                  zIndex = $(this).css('z-index');
                   $(this).css('z-index', 99999);
                   jqyoui.startXY = $(this).offset();
                   ngDragDropService.callEventCallback(scope, dragSettings.onStart, event, ui);
                 },
                 stop: function(event, ui) {
+                  $(this).css('z-index', zIndex);
                   ngDragDropService.callEventCallback(scope, dragSettings.onStop, event, ui);
                 },
                 drag: function(event, ui) {
