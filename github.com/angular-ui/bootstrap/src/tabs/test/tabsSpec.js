@@ -24,7 +24,7 @@ describe('tabs', function() {
     }
   }
 
-  
+
   describe('basics', function() {
 
     beforeEach(inject(function($compile, $rootScope) {
@@ -33,14 +33,16 @@ describe('tabs', function() {
       scope.second = '2';
       scope.actives = {};
       scope.selectFirst = jasmine.createSpy();
-      scope.selectSecond = jasmine.createSpy(); 
+      scope.selectSecond = jasmine.createSpy();
+      scope.deselectFirst = jasmine.createSpy();
+      scope.deselectSecond = jasmine.createSpy();
       elm = $compile([
         '<div>',
-        '  <tabset>',
-        '    <tab heading="First Tab {{first}}" active="actives.one" select="selectFirst()">',
+        '  <tabset class="hello" data-pizza="pepperoni">',
+        '    <tab heading="First Tab {{first}}" active="actives.one" select="selectFirst()" deselect="deselectFirst()">',
         '      first content is {{first}}',
         '    </tab>',
-        '    <tab active="actives.two" select="selectSecond()">',
+        '    <tab active="actives.two" select="selectSecond()" deselect="deselectSecond()">',
         '      <tab-heading><b>Second</b> Tab {{second}}</tab-heading>',
         '      second content is {{second}}',
         '    </tab>',
@@ -50,6 +52,12 @@ describe('tabs', function() {
       scope.$apply();
       return elm;
     }));
+
+    it('should pass class and other attributes on to tab template', function() {
+      var tabbable = elm.find('.tabbable');
+      expect(tabbable).toHaveClass('hello');
+      expect(tabbable.attr('data-pizza')).toBe('pepperoni');
+    });
 
     it('should create clickable titles', function() {
       var t = titles();
@@ -82,6 +90,14 @@ describe('tabs', function() {
       expect(scope.selectSecond).toHaveBeenCalled();
       titles().eq(0).find('a').click();
       expect(scope.selectFirst).toHaveBeenCalled();
+    });
+
+    it('should call deselect callback on deselect', function() {
+      titles().eq(1).find('a').click();
+      titles().eq(0).find('a').click();
+      expect(scope.deselectSecond).toHaveBeenCalled();
+      titles().eq(1).find('a').click();
+      expect(scope.deselectFirst).toHaveBeenCalled();
     });
 
   });
@@ -202,7 +218,7 @@ describe('tabs', function() {
       expect(heading().eq(2).text()).toBe('2');
       expect(heading().eq(3).text()).toBe('3');
     });
-    
+
   });
 
   //Tests that http://git.io/lG6I9Q is fixed
@@ -278,8 +294,8 @@ describe('tabs', function() {
   });
 
   describe('tabset controller', function() {
-    function mockTab() {
-      return { active: false };
+    function mockTab(isActive) {
+      return { active: !!isActive };
     }
 
     var ctrl;
@@ -348,6 +364,16 @@ describe('tabs', function() {
 
         ctrl.addTab(tab2);
         expect(tab1.active).toBe(true);
+      });
+
+      it('should select a tab added that\'s already active', function() {
+        var tab1 = mockTab(), tab2 = mockTab(true);
+        ctrl.addTab(tab1);
+        expect(tab1.active).toBe(true);
+
+        ctrl.addTab(tab2);
+        expect(tab1.active).toBe(false);
+        expect(tab2.active).toBe(true);
       });
     });
   });
@@ -428,14 +454,6 @@ describe('tabs', function() {
       expectTabActive(scope.tabs[2]);
     });
 
-    it('should not switch active when setting active=true', function() {
-      scope.$apply('tabs[2].active = true');
-      expectTabActive(scope.tabs[2]);
-
-      scope.$apply('tabs[3].active = true');
-      expectTabActive(scope.tabs[2]);
-    });
-
     it('should toggle between states', function() {
       expect(titles().eq(3)).toHaveClass('disabled');
       scope.$apply('tabs[3].disabled = false');
@@ -475,4 +493,57 @@ describe('tabs', function() {
     });
   });
 
+  //https://github.com/angular-ui/bootstrap/issues/524
+  describe('child compilation', function() {
+
+    var elm;
+    beforeEach(inject(function($compile, $rootScope) {
+      elm = $compile('<tabset><tab><div></div></tab></tabset></div>')($rootScope.$new());
+      $rootScope.$apply();
+    }));
+
+    it('should hookup the tab\'s children to the tab with $compile', function() {
+      var tabChild = $('.tab-pane', elm).children().first();
+      expect(tabChild.inheritedData('$tabsetController')).toBeTruthy();
+    });
+  });
+
+  //https://github.com/angular-ui/bootstrap/issues/631
+  describe('ng-options in content', function() {
+    var elm;
+    it('should render correct amount of options', inject(function($compile, $rootScope) {
+      var scope = $rootScope.$new();
+      elm = $compile('<tabset><tab><select ng-model="foo" ng-options="i for i in [1,2,3]"></tab>')(scope);
+      scope.$apply();
+
+      var select = elm.find('select');
+      scope.$apply();
+      expect(select.children().length).toBe(4);
+    }));
+  });
+
+  //https://github.com/angular-ui/bootstrap/issues/599
+  describe('ng-repeat in content', function() {
+    var elm;
+    it('should render ng-repeat', inject(function($compile, $rootScope) {
+      var scope = $rootScope.$new();
+      scope.tabs = [
+        {title:'a', array:[1,2,3]},
+        {title:'b', array:[2,3,4]},
+        {title:'c', array:[3,4,5]}
+      ];
+      elm = $compile('<div><tabset>' +
+        '<tab ng-repeat="tab in tabs" heading="{{tab.title}}">' +
+          '<tab-heading>{{$index}}</tab-heading>' +
+          '<span ng-repeat="a in tab.array">{{a}},</span>' +
+        '</tab>' +
+      '</tabset></div>')(scope);
+      scope.$apply();
+
+      var contents = elm.find('.tab-pane');
+      expect(contents.eq(0).text().trim()).toEqual('1,2,3,');
+      expect(contents.eq(1).text().trim()).toEqual('2,3,4,');
+      expect(contents.eq(2).text().trim()).toEqual('3,4,5,');
+    }));
+  });
 });

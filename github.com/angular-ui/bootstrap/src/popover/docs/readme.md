@@ -9,12 +9,17 @@ will display:
 
 - `popover-title`: A string to display as a fancy title.
 - `popover-placement`: Where to place it? Defaults to "top", but also accepts
-  "bottom", "left", or "right".
+  "bottom", "left", "right", or "mouse".
 - `popover-animation`: Should it fade in and out? Defaults to "true".
 - `popover-popup-delay`: For how long should the user have to have the mouse
   over the element before the popover shows (in milliseconds)? Defaults to 0.
 - `popover-trigger`: What should trigger the show of the popover? See the
   `tooltip` directive for supported values.
+- `popover-append-to-body`: Should the tooltip be appended to `$body` instead of
+  the parent element?
 
 The popover directives require the `$position` service.
+
+The popover directive also supports various default configurations through the
+$tooltipProvider. See the [tooltip](#tooltip) section for more information.
 

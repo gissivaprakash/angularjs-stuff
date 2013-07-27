@@ -126,6 +126,12 @@ module.exports = function(grunt) {
       continuous: {
         singleRun: true
       },
+      jenkins: {
+        singleRun: true,
+        colors: false,
+        reporter: ['dots', 'junit'],
+        browsers: ['Chrome', 'ChromeCanary', 'Firefox', 'Opera', '/Users/jenkins/bin/safari.sh', '/Users/jenkins/bin/ie9.sh' ,'/Users/jenkins/bin/ie10.sh']
+      },
       travis: {
         singleRun: true,
         browsers: ['Firefox']
@@ -134,20 +140,25 @@ module.exports = function(grunt) {
     changelog: {
       options: {
         dest: 'CHANGELOG.md',
-        templateFile: 'misc/changelog.tpl.md'
+        templateFile: 'misc/changelog.tpl.md',
+        github: 'angular-ui/bootstrap'
       }
     },
     shell: {
       //We use %version% and evluate it at run-time, because <%= pkg.version %>
       //is only evaluated once
-      release: [
+      'release-prepare': [
         'grunt before-test after-test',
         'grunt version', //remove "-SNAPSHOT"
-        'grunt changelog',
+        'grunt changelog'
+      ],
+      'release-complete': [
         'git commit CHANGELOG.md package.json -m "chore(release): v%version%"',
-        'git tag %version%',
+        'git tag %version%'
+      ],
+      'release-start': [
         'grunt version:minor:"SNAPSHOT"',
-        'git commit package.json -m "chore(): Starting v%version%"'
+        'git commit package.json -m "chore(release): Starting v%version%"'
       ]
     },
     ngdocs: {
@@ -282,9 +293,16 @@ module.exports = function(grunt) {
     var modules = grunt.config('modules');
     grunt.config('srcModules', _.pluck(modules, 'moduleName'));
     grunt.config('tplModules', _.pluck(modules, 'tplModules').filter(function(tpls) { return tpls.length > 0;} ));
-    grunt.config('demoModules', modules.filter(function(module) {
-      return module.docs.md && module.docs.js && module.docs.html;
-    }));
+    grunt.config('demoModules', modules
+      .filter(function(module) {
+        return module.docs.md && module.docs.js && module.docs.html;
+      })
+      .sort(function(a, b) {
+        if (a.name < b.name) { return -1; }
+        if (a.name > b.name) { return 1; }
+        return 0;
+      })
+    );
 
     var srcFiles = _.pluck(modules, 'srcFiles');
     var tpljsFiles = _.pluck(modules, 'tpljsFiles');
@@ -299,7 +317,13 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('test', 'Run tests on singleRun karma server', function() {
-    grunt.task.run(process.env.TRAVIS ? 'karma:travis' : 'karma:continuous');
+    //this task can be executed in 3 different environments: local, Travis-CI and Jenkins-CI
+    //we need to take settings for each one into account
+    if (process.env.TRAVIS) {
+      grunt.task.run('karma:travis');
+    } else {
+      grunt.task.run(this.args.length ? 'karma:jenkins' : 'karma:continuous');
+    }
   });
 
   function setVersion(type, suffix) {
