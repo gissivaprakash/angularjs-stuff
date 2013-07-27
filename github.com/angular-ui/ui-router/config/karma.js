@@ -12,13 +12,15 @@ files = [
   'test/testUtils.js',
 
   'src/common.js',
+  'src/resolve.js',
   'src/templateFactory.js',
   'src/urlMatcherFactory.js',
   'src/urlRouter.js',
   'src/state.js',
   'src/viewDirective.js',
+  'src/stateDirectives.js',
   'src/compat.js',
-  
+
   'test/*Spec.js',
   // 'test/compat/matchers.js',
   // 'test/compat/*Spec.js',
@@ -35,9 +37,6 @@ reporter = 'dots';
 
 // web server port
 port = 8080;
-
-// cli runner port
-runnerPort = 9100;
 
 // enable / disable colors in the output (reporters and logs)
 colors = true;
@@ -59,4 +58,5 @@ autoWatchInterval = 0;
 // - Opera
 // - Safari
 // - PhantomJS
-browsers = [];
+browsers = [ 'PhantomJS' ];
+
