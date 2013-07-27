@@ -14,10 +14,10 @@ A complete AngularJS directive for the Arshaw FullCalendar.
 
 We use testacular and jshint to ensure the quality of the code.  The easiest way to run these checks is to use grunt:
 
-  npm install -g grunt-cli
-  npm install
-  bower install
-  grunt
+    npm install -g grunt-cli
+    npm install
+    bower install
+    grunt
 
 # Usage
 
@@ -52,16 +52,23 @@ All the Arshaw Fullcalendar options can be passed through the directive. This ev
 
     myAppModule.controller('MyController', function($scope) {
         /* config object */
-        $scope.calendarConfig = {
+        $scope.uiConfig = {
+          calendar:{
             height: 450,
-            editiable: true,
-            dayClick: function(){
-                scope.$apply($scope.alertEventOnClick);
-            }
+            editable: true,
+            header:{
+              left: 'month basicWeek basicDay agendaWeek agendaDay',
+              center: 'title',
+              right: 'today prev,next'
+            },
+            dayClick: $scope.alertEventOnClick,
+            eventDrop: $scope.alertOnDrop,
+            eventResize: $scope.alertOnResize
+          }
         };
     });
 
-    <div ui-calendar="calendarOptions" ng-model="eventSources">
+    <div ui-calendar="uiConfig.calendar" ng-model="eventSources">
 
 ## Working with ng-model
 
