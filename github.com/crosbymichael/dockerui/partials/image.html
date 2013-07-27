@@ -1,10 +1,13 @@
-<div class="detail">
+<div ng-include="template" ng-controller="StartContainerController"></div>
 
-    <div id="response" class="alert alert-{{ alertClass }}">
-        {{ response }}        
+<div class="detail">
+ 
+    <h4>Image: {{ image.id }}</h4>
+
+    <div class="btn-group detail">
+      <button class="btn btn-success" ng-click="create()">Create</button>
     </div>
 
-    <h4>Image: {{ image.id }}</h4>
 
     <table class="table table-striped">
          <tbody>
@@ -20,6 +23,11 @@
                 <td>Container:</td>
                 <td><a href="/#/containers/{{ image.container }}/">{{ image.container }}</a></td>
             </tr>
+            <tr>
+                <td>Size:</td>
+                <td>{{ image.Size|humansize }}</td>
+            </tr>
+
             <tr>
                 <td>Hostname:</td>
                 <td>{{ image.container_config.Hostname }}</td>
@@ -40,10 +48,14 @@
                 <td>Volumes from:</td>
                 <td>{{ image.container_config.VolumesFrom }}</td>
             </tr>
+            <tr>
+                <td>Comment:</td>
+                <td>{{ image.comment }}</td>
+            </tr>
 
         </tbody>
     </table>
-    
+
     <div class="row-fluid">
         <div class="span1">
             History:
@@ -64,24 +76,21 @@
     <hr />
 
     <div class="row-fluid">
-        <form>
+        <form class="form-inline">
             <fieldset>
-                <legend>Tag to Repo</legend> 
-                <label>Repo:</label>
-                <input type="text" placeholder="Repo..." ng-model="tag.repo" required>
+                <legend>Tag image</legend>
+                <label>Tag:</label>
+                <input type="text" placeholder="repo..." ng-model="tag.repo">
                 <label class="checkbox">
                       <input type="checkbox" ng-model="tag.force"/> Force?
                  </label>
-                 <input type="button" ng-click="updateTag()" value="Update" class="btn btn-info"/>
+                 <input type="button" ng-click="updateTag()" value="Tag" class="btn btn-info"/>
             </fieldset>
         </form>
     </div>
 
     <hr />
 
-    <div ng-include="template" ng-controller="StartContainerController"></div>
-
-    <hr />
 
     <div class="btn-remove">
         <button class="btn btn-large btn-block btn-primary btn-danger" ng-click="remove()">Remove Image</button>
