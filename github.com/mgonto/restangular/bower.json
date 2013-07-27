@@ -1,6 +1,6 @@
 {
   "name": "restangular",
-  "version": "0.8.2",
+  "version": "1.0.7",
   "main": "./dist/restangular.min.js",
   "description": "Restfull Resources service for AngularJS apps",
   "repository": {
@@ -9,8 +9,7 @@
   },
   "dependencies": {
     "lodash": "~1.2.0",
-    "angular": "*",
-    "angular-resource": "*"
+    "angular": "*"
   },
   "ignore": [
     "node_modules",

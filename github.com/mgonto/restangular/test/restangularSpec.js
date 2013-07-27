@@ -16,7 +16,6 @@ describe("Restangular", function() {
   // Remove all Restangular/AngularJS added methods in order to use Jasmine toEqual between the retrieve resource and the model
   function sanitizeRestangularOne(item) {
     return _.omit(item, "route", "parentResource", "getList", "get", "post", "put", "remove", "head", "trace", "options", "patch",
-      "$get", "$save", "$query", "$remove", "$delete", "$put", "$post", "$head", "$trace", "$options", "$patch",
       "$then", "$resolved", "restangularCollection", "customOperation", "customGET", "customPOST",
       "customPUT", "customDELETE", "customGETLIST", "$getList", "$resolved", "restangularCollection", "one", "all","doGET", "doPOST",
       "doPUT", "doDELETE", "doGETLIST", "addRestangularMethod", "getRestangularUrl");
@@ -57,7 +56,6 @@ describe("Restangular", function() {
     $httpBackend.whenPOST("/accounts").respond(function(method, url, data, headers) {
       var newData = angular.fromJson(data);
       newData.fromServer = true;
-      accountsModel.push(newData);
       return [201, JSON.stringify(newData), ""];
     });
 
@@ -92,7 +90,7 @@ describe("Restangular", function() {
   describe("ALL", function() {
     it("getList() should return an array of items", function() {
       restangularAccounts.getList().then(function(accounts) {
-        expect(sanitizeRestangularAll(accounts)).toEqual(accountsModel);
+        expect(sanitizeRestangularAll(accounts)).toEqual(sanitizeRestangularAll(accountsModel));
       });
 
       $httpBackend.flush();
@@ -104,9 +102,9 @@ describe("Restangular", function() {
       $httpBackend.flush();
     });
 
-    it("Custom GET methods sohuld work", function() {
+    it("Custom GET methods should work", function() {
       restangularAccounts.customGETLIST("messages").then(function(msgs) {
-        expect(sanitizeRestangularAll(msgs)).toEqual(messages);
+        expect(sanitizeRestangularAll(msgs)).toEqual(sanitizeRestangularAll(messages));
       });
 
       $httpBackend.flush();
@@ -146,7 +144,8 @@ describe("Restangular", function() {
       restangularAccounts.getList().then(function(accounts) {
         var newTransaction = {id: 1, name: "Gonto"};
         accounts[1].post('transactions', newTransaction).then(function(transaction) {
-          expect(sanitizeRestangularOne(transaction)).toEqual(newTransaction);
+          expect(sanitizeRestangularOne(transaction))
+            .toEqual(sanitizeRestangularOne(newTransaction));
         });
       });
 
@@ -180,7 +179,8 @@ describe("Restangular", function() {
   describe("ONE", function() {
     it("get() should return a JSON item", function() {
       restangularAccount1.get().then(function(account) {
-        expect(sanitizeRestangularOne(account)).toEqual(accountsModel[1]);
+        expect(sanitizeRestangularOne(account))
+          .toEqual(sanitizeRestangularOne(accountsModel[1]));
       });
 
       $httpBackend.flush();
@@ -188,7 +188,8 @@ describe("Restangular", function() {
 
     it("Should make RequestLess connections with one", function() {
       restangularAccount1.one("transactions", 1).get().then(function(transaction) {
-        expect(sanitizeRestangularOne(transaction)).toEqual(accountsModel[1].transactions[1]);
+        expect(sanitizeRestangularOne(transaction))
+          .toEqual(sanitizeRestangularOne(accountsModel[1].transactions[1]));
       });
 
       $httpBackend.flush();
@@ -196,16 +197,17 @@ describe("Restangular", function() {
 
     it("Should make RequestLess connections with all", function() {
       restangularAccount1.all("transactions").getList().then(function(transactions) {
-        expect(sanitizeRestangularAll(transactions)).toEqual(accountsModel[1].transactions);
+        expect(sanitizeRestangularAll(transactions))
+          .toEqual(sanitizeRestangularAll(accountsModel[1].transactions));
       });
 
       $httpBackend.flush();
     });
 
 
-    it("Custom GET methods sohuld work", function() {
+    it("Custom GET methods should work", function() {
       restangularAccount1.customGET("message").then(function(msg) {
-        expect(sanitizeRestangularOne(msg)).toEqual(messages[0]);
+        expect(sanitizeRestangularOne(msg)).toEqual(sanitizeRestangularOne(messages[0]));
       });
 
       $httpBackend.flush();
@@ -230,7 +232,8 @@ describe("Restangular", function() {
     it("should return an array when accessing a subvalue", function() {
       restangularAccount1.get().then(function(account) {
         account.getList("transactions").then(function(transactions) {
-          expect(sanitizeRestangularAll(transactions)).toEqual(accountsModel[1].transactions);
+          expect(sanitizeRestangularAll(transactions))
+            .toEqual(sanitizeRestangularAll(accountsModel[1].transactions));
         });
       });
 
@@ -238,4 +241,113 @@ describe("Restangular", function() {
     });
   });
 
+  describe("COPY", function() {
+    it("should copy an object and 'this' should reference the copied object", function() {
+      var copiedAccount = Restangular.copy(accountsModel[0]);
+      var that;
+
+      copiedAccount.user = "Copied string";
+      expect(copiedAccount).not.toBe(accountsModel[0]);
+
+      // create a spy for one of the methods to capture the value of 'this'
+      spyOn(copiedAccount, 'getRestangularUrl').andCallFake(function() {
+        that = this;
+      });
+
+      copiedAccount.getRestangularUrl(); // invoke the method we are spying on
+      expect(that).toBe(copiedAccount);
+    });
+  });
+
+  describe("getRestangularUrl", function() {
+    it("should return the generated URL when you chain Restangular methods together", function() {
+      var restangularSpaces = Restangular.one("accounts",123).one("buildings", 456).all("spaces");
+      expect(restangularSpaces.getRestangularUrl()).toEqual("/accounts/123/buildings/456/spaces");
+    });
+  });
+
+  describe("addElementTransformer", function() {
+    it("should allow for a custom method to be placed at the collection level", function() {
+      var accountsPromise;
+
+      Restangular.addElementTransformer('accounts', true, function(collection) {
+         collection.totalAmount = function() {};
+         return collection;
+      });
+
+      accountsPromise = Restangular.all('accounts').getList();
+      
+      accountsPromise.then(function(accounts) {
+        expect(typeof accounts.totalAmount).toEqual("function");
+      });
+
+      $httpBackend.flush();
+    });
+
+    it("should allow for a custom method to be placed at the model level when one model is requested", function() {
+      var accountPromise;
+      
+      Restangular.addElementTransformer('accounts', false, function(model) {
+         model.prettifyAmount = function() {};
+         return model;
+      });
+
+      accountPromise = Restangular.one('accounts', 1).get();
+      
+      accountPromise.then(function(account) {
+        expect(typeof account.prettifyAmount).toEqual("function");
+      });
+
+      $httpBackend.flush();
+    });
+
+    it("should allow for a custom method to be placed at the model level when several models are requested", function() {
+      var accountPromise;
+      
+      Restangular.addElementTransformer('accounts', false, function(model) {
+         model.prettifyAmount = function() {};
+         return model;
+      });
+
+      accountsPromise = Restangular.all('accounts', 1).getList();
+      
+      accountsPromise.then(function(accounts) {
+        accounts.forEach(function(account, index) {
+          expect(typeof account.prettifyAmount).toEqual("function");
+        });
+      });
+
+      $httpBackend.flush();
+    });
+  });
+
+  describe("extendCollection", function() {
+    it("should be an alias for a specific invocation of addElementTransformer", function() {
+      var spy = spyOn(Restangular, 'addElementTransformer');
+
+      var fn = function(collection) {
+        collection.totalAmount = function() {};
+        return collection;
+      };
+
+      Restangular.extendCollection('accounts', fn);
+
+      expect(spy).toHaveBeenCalledWith('accounts', true, fn);
+    });
+  });
+
+  describe("extendModel", function() {
+    it("should be an alias for a specific invocation of addElementTransformer", function() {
+      var spy = spyOn(Restangular, 'addElementTransformer');
+
+      var fn = function(model) {
+        model.prettifyAmount = function() {};
+        return model;
+      };
+
+      Restangular.extendModel('accounts', fn);
+
+      expect(spy).toHaveBeenCalledWith('accounts', false, fn);
+    });
+  });
 });
