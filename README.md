@@ -14,6 +14,7 @@ Restangular has several features that distinguish it from $resource:
 
 * **It uses promises**. Instead of doing the "magic" filling of objects like $resource, it uses promises.
 * **You can use this in $routeProvider.resolve**. As Restangular returns promises, you can return any of the methods in the `$routeProvider.resolve` and you'll get the real object injected into your controller if you want.
+* **It doesn't have all those `$resource` bugs**. Restangular doesn't have problem with trailling slashes, additional `:` in the URL, escapaing information, expecting only arrays for getting lists, etc.
 * **It supports all HTTP methods**.
 * **You don't have to create one $resource object per request**. Each time you want to do a request, you can just do it using the object that was returned by Restangular. You don't need to create a new object for this.
 * **You don't have to write or remember ANY URL**. With $resource, you need to write the URL Template. In here, you don't write any urls. You just write the name of the resource you want to fetch and that's it.
@@ -35,12 +36,12 @@ Restangular.one('users').getList().then(function(users) {
 // This is a promise
 $scope.cars = $scope.user.getList('cars');
 
-// POST /users/123/sendMessage You've creat.ed your own method with the path & operation that you wanted
+// POST /users/123/sendMessage You've created your own method with the path & operation that you wanted
 $scope.user.sendMessage();
 
 // URL Building
 // GET to /user/123/messages/123/from/123/unread
-$scope.user.one('message', 123).one('from', 123).getList('unread')
+$scope.user.one('messages', 123).one('from', 123).getList('unread')
 
 
 ````
@@ -67,7 +68,7 @@ You can download this by:
 
 #Dependencies
 
-Restangular depends on Angular, Angular-Resources and (Underscore or Lodash).
+Restangular depends on Angular and (Underscore or Lodash). **angular-resource is no longer needed since version 1.0.6, now this uses `$http` instead of `$resource`**
 
 #Starter Guide
 
@@ -151,7 +152,7 @@ baseAccounts.getList().then(function (accounts) {
   // This is a regular JS object, we can change anything we want :) 
   firstAccount.name = "Gonto"
   
-  //If we wanted to keep the original as it's we can copy it to a new element
+  //If we wanted to keep the original as it is, we can copy it to a new element
   var editFirstAccount = Restangular.copy(firstAccount);
   editFirstAccount.name = "New Name";
   
@@ -216,7 +217,7 @@ account.customPOST("messages", {param: "myParam"}, {}, {name: "My Message"})
 
 ### Properties
 Restangular comes with defaults for all of it's properties but you can configure them. **So, if you don't need to configure something, there's no need to add the configuration.**
-You can set all this configurations in **`RestangularProvider` to change the global configuration** or you can **use the withConfig method in Restangular service to create a new Restangular service with some scoped configuration**. Check the section on this later.
+You can set all this configurations in **`RestangularProvider` or `Restangular` service to change the global configuration** or you can **use the withConfig method in Restangular service to create a new Restangular service with some scoped configuration**. Check the section on this later.
 
 #### baseUrl
 The base URL for all calls to your API. For example if your URL for fetching accounts is http://example.com/api/v1/accounts, then your baseUrl is `/api/v1`. The default baseUrl is an empty string which resolves to the same url that AngularJS is running, so you can also set an absolute url like `http://api.example.com/api/v1` if you need do set another domain.
@@ -224,14 +225,38 @@ The base URL for all calls to your API. For example if your URL for fetching acc
 #### extraFields
 This are the fields that you want to save from your parent resources if you need to display them. By default this is an Empty Array which will suit most cases
 
+#### parentless
+With this property, you can set if you want Restangularized elements to have a parent or not. So, for example if you get an account and then get a nested list of buildings, you may want the buildings URL to be simple `/buildings/123` instead of `/accounts/123/buildings/123`. This configuration lets you do that.
+
+This method accepts 2 parameters:
+
+* Boolean: Specifies if all elements should be parentless or not
+* Array: Specified the routes (types) of all elements that should be parentless. For example `['buildings']`
+
 #### defaultHttpFields
 `$http` from AngularJS can receive a bunch of parameters like `cache`, `transformRequest` and so on. You can set all of those properties in the object sent on this setter so that they will be used in EVERY API call made by Restangular. This is very useful for caching for example. All properties that can be set can be checked here: http://docs.angularjs.org/api/ng.$http#Parameters
 
 #### urlCreator
 This is the factory that will create URLs based on the resources. For the time being, only Path UrlCreator is implemented. This means that if you have a resource names Building which is a child of Account, the URL to fetch this will be `/accounts/123/buildings`. In the future, I'll implement more UrlCreator like QueryParams UrlCreator.
 
+#### addElementTransformer
+This is a hook. After each element has been "restangularized" (Added the new methods from Restangular), the corresponding transformer will be called if it fits. 
+
+This should be used to add your own methods / functions to entities of certain types.
+
+You can add as many element transformers as you want. The signature of this method can be one of the following:
+
+* **addElementTransformer(route, transformer)**: Transformer is called with all elements that have been restangularized, no matter if they're collections or not.
+
+* **addElementTransformer(route, isCollection, transformer)**: Transformer is called with all elements that have been restangularized and match the specification regarding if it's a collection or not (true | false)
+
+
 #### onElemRestangularized
 This is a hook. After each element has been "restangularized" (Added the new methods from Restangular), this will be called. It means that if you receive a list of objects in one call, this method will be called first for the collection and then for each element of the collection.
+
+**I favor the usage of `addElementTransformer` instead of `onElemRestangularized` whenever possible as the implementation is much cleaner.**
+
+
 This callback is a function that has 3 parameters:
 
 * **elem**: The element that has just been restangularized. Can be a collection or a single element.
@@ -241,12 +266,6 @@ This callback is a function that has 3 parameters:
  
 This can be used together with `addRestangularMethod` (Explained later) to add custom methods to an element
 
-#### addElementTransformer
-You can add as many element transformers as you want. The signature of this method can be one of the following:
-
-* **addElementTransformer(route, transformer)**: Transformer is called with all elements that have been restangularized, no matter if they're collections or not.
-
-* **addElementTransformer(route, isCollection, transformer)**: Transformer is called with all elements that have been restangularized and match the specification regarding if it's a collection or not (true | false)
 
 #### responseInterceptor (or responseExtractor. It's an Alias)
 The responseInterceptor is called after we get each response from the server. It's a function that receives 4 arguments:
@@ -266,9 +285,24 @@ The requestInterceptor is called before sending any data to the server. It's a f
 * **what**: The model that's being requested. It can be for example: `accounts`, `buildings`, etc.
 * **url**: The relative URL being requested. For example: `/api/v1/accounts/123`
 
+#### fullRequestInterceptor
+The fullRequestInterceptor is similar to the `requestInterceptor` but more powerful. It lets you change the element, the request parameters and the headers as well.
+
+It's a function that receives the same as the `requestInterceptor` plus the headers and the query parameters (in that order).
+
+It must return an object with the following properties:
+* **headers**: The headers to send
+* **params**: The request parameters to send
+* **element**: The element to send
+
+#### errorInterceptor
+The errorInterceptor is called whenever there's an error. It's a function that receives the response as a parameter.
+
 #### listTypeIsArray
 
-You can set in this property wether the `getList` method will return an Array or not. Most of the times, it will return an array, as it returns a collection of values. However, sometimes this method returns first some metadata and inside it has the array. So this can be used together with `responseExtractor` to get the real array. The default value is true.
+We don't use `$resource` anymore so this property is depracated. I've left it with an empty setter per now to avoid errors, but it'll be removed in the future.
+
+~~You can set in this property wether the `getList` method will return an Array or not. Most of the times, it will return an array, as it returns a collection of values. However, sometimes this method returns first some metadata and inside it has the array. So this can be used together with `responseExtractor` to get the real array. The default value is true.~~
 
 #### restangularFields
 
@@ -278,7 +312,6 @@ Restangular required 3 fields for every "Restangularized" element. This are:
 * route: Name of the route of this element. Default: route
 * parentResource: The reference to the parent resource. Default: parentResource
 * restangularCollection: A boolean indicating if this is a collection or an element. Default: restangularCollection
-* what: The name of the parameter to be used in inner $resource to handle the PATH of the url. For example, in `/users/123/messages`, `messages`represents the "what". Default: restangularWhat 
 
 All of this fields except for `id` are handled by Restangular, so most of the time you won't change them. You can configure the name of the property that will be binded to all of this fields by setting restangularFields property.
 
@@ -290,13 +323,23 @@ You can now Override HTTP Methods. You can set here the array of methods to over
 
 You can set default Query parameters to be sent with every request
 
+#### fullResponse
+
+You can set fullResponse to true to get the whole response every time you do any request. The full response has the restangularized data in the `data` field, and also has the headers and config sent. By default, it's set to false.
+
+#### defaultHeaders
+
+You can set default Headers to be sent with every request.
+
 #### requestSuffix
 
 If all of your requests require to send some suffix to work, you can set it here. For example, if you need to send the format like `/users/123.json`you can add that `.json` to the suffix using the `setRequestSuffix`method
 
 ### How to configure them globally
-You can configure this properties inside the config method of your app
 
+You can do this configurations in either the `config` or the `run` method. If your configurations don't need any other services, then I'd recommend you do them in the `config`. If your configurations depend on other services, you can configure them in the `run` using `Restangular` instead of `RestangularProvider` 
+
+#### Configuring in the `config`
 ````javascript
 app.config(function(RestangularProvider) {
     RestangularProvider.setBaseUrl('/api/v1');
@@ -305,12 +348,17 @@ app.config(function(RestangularProvider) {
         return response.data;
     });
     
+    RestangularProvider.addElementTransformer('accounts', false, function(element) {
+       element.accountName = 'Changed';
+       return element;
+    });
+    
     RestangularProvider.setDefaultHttpFields({cache: true});
     RestangularProvider.setMethodOverriders(["put", "patch"]);
     
-    RestangularProvider.setListTypeIsArray(true);
-    
-    // In this case we configure that the id of each element will be the _id field and we change the Restangular route. We leave the default value for parentResource
+    // In this case we are maping the id of each element to the _id field.
+    // We also change the Restangular route. 
+    // The default value for parentResource remains the same.
     RestangularProvider.setRestangularFields({
       id: "_id",
       route: "restangularRoute"
@@ -318,17 +366,33 @@ app.config(function(RestangularProvider) {
     
     RestangularProvider.setRequestSuffix('.json');
     
+    // Use Request interceptor
     RestangularProvider.setRequestInterceptor(function(element, operation, route, url) {
-      delete elem.name;
-      return elem;
+      delete element.name;
+      return element;
     });
     
-    RestangularProvider.addElementTransformer('accounts', false,function(elem) {
-       elem.accountName = 'Changed';
-       return elem;
+    // ..or use the full request interceptor, setRequestInterceptor's more powerful brother!
+    RestangularProvider.setFullRequestInterceptor(function(element, operation, route, url, headers, params) {
+      delete element.name;      
+      return {
+        element: element,
+        params: _.extend(params, {single: true}),
+        headers: headers
+      };
     });
+    
 });
 
+````
+
+#### Configuring in the `run`
+
+````javascript
+// Here I inject the service BaseUrlCalculator which I need
+app.run(function(Restangular, BaseUrlCalculator) {
+    Restangular.setBaseUrl(BaseUrlCalculator.calculate());
+});
 ````
 
 ### How to create a Restangular service with a different configuration from the global one
@@ -396,6 +460,8 @@ This are the methods that can be called in the Restangular object.
 * **patch([queryParams, headers])**: Does a PATCH
 * **putElement(idx, params, headers)**: Puts the element on the required index and returns a promise of the updated new array
 * **getRestangularUrl()**: Gets the URL of the current object.
+* **one(route, id)**: Used for RequestLess connections and URL Building. See section below.
+* **all(route)**: Used for RequestLess connections and URL Building. See section below.
 
 ### Custom methods
 * **customGET(path, [params, headers])**: Does a GET to the specific path. Optionally you can set params and headers.
@@ -452,7 +518,7 @@ Sometimes, we have a lot of entities names with their ids and we just want to fe
 
 ````javascript
 
-var restangualrSpaces = Restangular.one("accounts",123).one("buildings", 456).all("spaces");
+var restangularSpaces = Restangular.one("accounts",123).one("buildings", 456).all("spaces");
 
 // This will do ONE get to /accounts/123/buildings/456/spaces
 restangularSpaces.getList()
@@ -469,19 +535,32 @@ Restangular.one("accounts", 123).one("buildings", 456).remove();
 
 ## Creating new Restangular Methods
 
-Let's assume that your API needs some custom methods to work. If that's the case, always calling customGET or customPOST for that method with all parameters is a pain in the ass. That's why every element has a `addRestangularMethod` method. This can be used together with the hook `setOnElemRestangularized` to do some neat stuff. Let's see an example to learn this:
+Let's assume that your API needs some custom methods to work. If that's the case, always calling customGET or customPOST for that method with all parameters is a pain in the ass. That's why every element has a `addRestangularMethod` method. 
+
+This can be used together with the hook `addElementTransformer` to do some neat stuff. Let's see an example to learn this:
 
 ````javascript
 //In your app configuration (config method)
-RestangularProvider.setOnElemRestangularized(function(elem, isCollection, route) {
-    if (!isCollection && route === "buildings") {
+
+// It will transform all building elements, NOT collections
+RestangularProvider.addElementTransformer('buildings', false, function(building) {
         // This will add a method called evaluate that will do a get to path evaluate with NO default
         // query params and with some default header
         // signature is (name, operation, path, params, headers, elementToPost)
-        elem.addRestangularMethod('evaluate', 'get', 'evaluate', undefined, {'myHeader': 'value'});
-    }
-    return elem;
-})
+        
+        building.addRestangularMethod('evaluate', 'get', 'evaluate', undefined, {'myHeader': 'value'});
+        
+        return building;
+});
+
+RestangularProvider.addElementTransformer('users', true, function(user) {
+        // This will add a method called login that will do a POST to the path login
+        // signature is (name, operation, path, params, headers, elementToPost)
+        
+        user.addRestangularMethod('login', 'post', 'login');
+        
+        return user;
+});
 
 // Then, later in your code you can do the following:
 
@@ -489,13 +568,63 @@ RestangularProvider.setOnElemRestangularized(function(elem, isCollection, route)
 //Signature for this "custom created" methods is (params, headers, elem)
 // If something is set to any of this variables, the default set in the method creation will be overrided
 // If nothing is set, then the defaults are sent
-building.evaluate({myParam: 'param'});
+Restangular.one('building', 123).evaluate({myParam: 'param'});
 
 //GET to /buildings/123/evaluate?myParam=param with headers myHeader: specialHeaderCase
-building.evaluate({myParam: 'param'}, {'myHeader': 'specialHeaderCase'});
+Restangular.one('building', 123).evaluate({myParam: 'param'}, {'myHeader': 'specialHeaderCase'});
+
+Restangular.all('users').login();
 
 ````
- 
+
+## Adding Custom Methods to Collections
+
+Create custom methods for your collection using Restangular.extendCollection(). This is an alias for:
+
+```
+  Restangular.addElementTransformer(route, true, fn)
+```
+
+### Example:
+```
+  // create methods for your collection
+  Restangular.extendCollection('accounts', function(collection) {
+    collection.totalAmount = function() {
+      // implementation here
+    };
+
+    return collection;
+  });
+
+  var accountsPromise = Restangular.all('accounts').getList();
+      
+  accountsPromise.then(function(accounts) {
+    accounts.totalAmount(); // invoke your custom collection method
+  });
+```
+
+## Adding Custom Methods to Models
+
+Create custom methods for your models using Restangular.extendModel(). This is an alias for:
+
+```
+  Restangular.addElementTransformer(route, false, fn)
+```
+
+### Example:
+```
+  Restangular.extendModel('accounts', function(model) {
+    model.prettifyAmount = function() {};
+    return model;
+  });
+
+  var accountPromise = Restangular.one('accounts', 1).get();
+  
+  accountPromise.then(function(account) {
+    account.prettifyAmount(); // invoke your custom model method
+  });
+```
+
 # FAQ
 
 #### **How can I handle errors?**
@@ -512,14 +641,7 @@ Restangular.all("accounts").getList().then(function() {
 
 #### **I need to send one header in EVERY Restangular request, how do I do this?**
 
-Restangular uses $http inside, so you can actually set default headers by using $httpProvider. This also applies to XSRF headers as well
-
-````javascript
-app.config(["$httpProvider", function($httpProvider) {
-  $httpProvider.defaults.headers.common['Tenant-id'] = 'X';
-  $httpProvider.defaults.headers.get['Gonto-id'] = 'P';
-}]);
-````
+You can use `defaultHeaders` property for this or `$httpProvider.defaults.headers`, whichever suits you better. `defaultsHeaders` can be scoped with `withConfig` so it's really cool.
 
 #### Can I cache requests?
 
@@ -566,8 +688,6 @@ In this case, you'd need to configure Restangular's `responseExtractor`and `list
 
 ````javascript
 app.config(function(RestangularProvider) {
-    // First let's set listTypeIsArray to false, as we have the array wrapped in some other object.
-    RestangularProvider.setListTypeIsArray(false);
     
     // Now let's configure the response extractor for each request
     RestangularProvider.setResponseExtractor(function(response, operation, what, url) {
@@ -634,10 +754,25 @@ However, changes to that promise that you do from your HTML won't be seen in the
 
 #### When I set baseUrl with a port, it's stripped out.
 
-Restangular uses `$resource` inside. `$resource` requires ports to be escaped to as not to think they are actually parameters. So the right way of setting a baseUrl with a port is the following:
+It won't be stripped out anymore as I've ditched `$resource` :). Now you can happily put the port :).
+
+#### How can I access the `unrestangularized` element as well as the `restangularized` one?
+
+In order to get this done, you need to use the `responseExtractor`. You need to set a property there that will point to the original response received. Also, you need to actually copy this response as that response is the one that's going to be `restangularized` later
 
 ````javascript
-RestangularProvider.setBaseUrl('http://localhost\\:8080');
+RestangularProvider.setResponseExtractor(function(response) {
+  var newResponse = response;
+  if (angular.isArray(response)) {
+    angular.forEach(newResponse, function(value, key) {
+      newResponse[key].originalElement = angular.copy(value);
+    });
+  } else {
+    newResponse.originalElement = angular.copy(response);
+  }
+
+  return newResponse;
+});
 ````
 
 #### Why does this depend on Lodash / Underscore?
@@ -651,10 +786,6 @@ So, why not use it? If you've never heard of them, by using Restangular, you cou
 
 Restangular supports both 1.0.X and 1.1.X up to versions 1.0.7 and 1.1.5.
 
-When using Restangular with 1.1.X you get the following extra features:
-* You can send custom headers using the `headers` parameter in all API calls
-* You can use the `setHttpDefault` configuration method to set some $http defaults like `{cache: true}`
-
 Also, when using Restangular with version >= 1.1.4, in case you're using Restangular inside a callback not handled by Angular, you've to wrap this all request with a `$scope.apply` to make it work or you need to run one extra `$digest` manually. Check out https://github.com/mgonto/restangular/issues/71
 
 
@@ -666,6 +797,7 @@ This server frameworks play real nice with Restangular, as they let you create a
 * CakePHP for PHP
 * Play1 & 2 for Java & scala
 * Restify and Express for NodeJS
+* Tastypie for Django 
 
 
 # Releases Notes
