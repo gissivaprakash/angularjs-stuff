@@ -1,5 +1,5 @@
-$StateProvider.$inject = ['$urlRouterProvider', '$urlMatcherFactoryProvider'];
-function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
+$StateProvider.$inject = ['$urlRouterProvider', '$urlMatcherFactoryProvider', '$locationProvider'];
+function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory,           $locationProvider) {
 
   var root, states = {}, $state;
 
@@ -40,6 +40,11 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
       parent = findState(state.parent);
     }
     state.parent = parent;
+    // inherit 'data' from parent and override by own values (if any)
+    if (state.parent && state.parent.data) {
+        state.data = angular.extend({}, state.parent.data, state.data);
+        state.self.data = state.data;
+    }
     // state.children = [];
     // if (parent) parent.children.push(state);
 
@@ -111,7 +116,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
     // Register the state in the global state list and with $urlRouter if necessary.
     if (!state['abstract'] && url) {
       $urlRouterProvider.when(url, ['$match', function ($match) {
-        $state.transitionTo(state, $match, false);
+        if ($state.$current.navigable != state) $state.transitionTo(state, $match, false);
       }]);
     }
     states[name] = state;
@@ -266,10 +271,12 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
       return $state.$current.includes[findState(stateOrName).name];
     };
 
-    $state.href = function (stateOrName, params) {
-      var state = findState(stateOrName), nav = state.navigable;
-      if (!nav) throw new Error("State '" + state + "' is not navigable");
-      return nav.url.format(normalize(state.params, params || {}));
+    $state.href = function (stateOrName, params, options) {
+      options = extend({ lossy: true }, options || {});
+      var state = findState(stateOrName);
+      var nav = (state && options.lossy) ? state.navigable : state;
+      var url = (nav && nav.url) ? nav.url.format(normalize(state.params, params || {})) : null;
+      return !$locationProvider.html5Mode() && url ? "#" + url : url;
     };
 
     function resolveState(state, params, paramsAreFiltered, inherited, dst) {
@@ -305,7 +312,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
       }
 
       // Resolve 'global' dependencies for the state, i.e. those not specific to a view.
-      // We're also including $stateParams in this; that we're the parameters are restricted
+      // We're also including $stateParams in this; that way the parameters are restricted
       // to the set that should be visible to the state, and are independent of when we update
       // the global $state and $stateParams values.
       var globals = dst.globals = { $stateParams: $stateParams };

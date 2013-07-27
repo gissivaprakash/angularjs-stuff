@@ -1,6 +1,11 @@
 describe('state', function () {
-  
-  beforeEach(module('ui.state'));
+
+  var locationProvider;
+
+  beforeEach(module('ui.state', function($locationProvider) {
+    locationProvider = $locationProvider;
+    $locationProvider.html5Mode(false);
+  }));
 
   var log, logEvents, logEnterExit;
   function eventLogger(event, to, toParams, from, fromParams) {
@@ -18,10 +23,13 @@ describe('state', function () {
       D = { params: [ 'x', 'y' ] },
       DD = { parent: D, params: [ 'x', 'y', 'z' ] },
       E = { params: [ 'i' ] },
+      H = { data: {propA: 'propA', propB: 'propB'} },
+      HH = { parent: H },
+      HHH = {parent: HH, data: {propA: 'overriddenA', propC: 'propC'} }
       AppInjectable = {};
 
   beforeEach(module(function ($stateProvider, $provide) {
-    angular.forEach([ A, B, C, D, DD, E ], function (state) {
+    angular.forEach([ A, B, C, D, DD, E, H, HH, HHH ], function (state) {
       state.onEnter = callbackLogger('onEnter');
       state.onExit = callbackLogger('onExit');
     });
@@ -33,12 +41,16 @@ describe('state', function () {
       .state('D', D)
       .state('DD', DD)
       .state('E', E)
+      .state('H', H)
+      .state('HH', HH)
+      .state('HHH', HHH)
 
       .state('home', { url: "/" })
       .state('home.item', { url: "front/:id" })
       .state('about', { url: "/about" })
       .state('about.person', { url: "/:person" })
-      .state('about.person.item', { url: "/:id" });
+      .state('about.person.item', { url: "/:id" })
+      .state('about.sidebar', {});
 
     $provide.value('AppInjectable', AppInjectable);
   }));
@@ -160,7 +172,7 @@ describe('state', function () {
         '$stateChangeSuccess(C,A);');
     }));
 
-    it('aborts pending transitions even when going back to the curren state', inject(function ($state, $q) {
+    it('aborts pending transitions even when going back to the current state', inject(function ($state, $q) {
       initStateTo(A);
       logEvents = true;
 
@@ -190,6 +202,11 @@ describe('state', function () {
         'DD.onExit;' +
         'D.onExit;' +
         'A.onEnter;');
+    }));
+
+    it('doesn\'t transition to parent state when child has no URL', inject(function ($state, $q) {
+      $state.transitionTo('about.sidebar'); $q.flush();
+      expect($state.current.name).toEqual('about.sidebar');
     }));
   });
 
@@ -250,18 +267,57 @@ describe('state', function () {
 
   describe('.href()', function () {
     it('aborts on un-navigable states', inject(function ($state) {
-      expect(function() { $state.href("A"); }).toThrow("State 'A' is not navigable");
+      expect($state.href("A")).toBeNull();
+      expect($state.href("about.sidebar", null, { lossy: false })).toBeNull();
+    }));
+
+    it('generates a parent state URL when lossy is true', inject(function ($state) {
+      expect($state.href("about.sidebar", null, { lossy: true })).toEqual("#/about");
     }));
 
     it('generates a URL without parameters', inject(function ($state) {
-      expect($state.href("home")).toEqual("/");
-      expect($state.href("about", {})).toEqual("/about");
-      expect($state.href("about", { foo: "bar" })).toEqual("/about");
+      expect($state.href("home")).toEqual("#/");
+      expect($state.href("about", {})).toEqual("#/about");
+      expect($state.href("about", { foo: "bar" })).toEqual("#/about");
     }));
 
     it('generates a URL with parameters', inject(function ($state) {
+      expect($state.href("about.person", { person: "bob" })).toEqual("#/about/bob");
+      expect($state.href("about.person.item", { person: "bob", id: null })).toEqual("#/about/bob/");
+    }));
+  });
+
+  describe(' "data" property inheritance/override', function () {
+    it('"data" property should stay immutable for if state doesn\'t have parent', inject(function ($state) {
+      initStateTo(H);
+      expect($state.current.name).toEqual('H');
+      expect($state.current.data.propA).toEqual(H.data.propA);
+      expect($state.current.data.propB).toEqual(H.data.propB);
+    }));
+
+    it('"data" property should be inherited from parent if state doesn\'t define it', inject(function ($state) {
+      initStateTo(HH);
+      expect($state.current.name).toEqual('HH');
+      expect($state.current.data.propA).toEqual(H.data.propA);
+      expect($state.current.data.propB).toEqual(H.data.propB);
+    }));
+
+    it('"data" property should be overridden/extended if state defines it', inject(function ($state) {
+      initStateTo(HHH);
+      expect($state.current.name).toEqual('HHH');
+      expect($state.current.data.propA).toEqual(HHH.data.propA);
+      expect($state.current.data.propB).toEqual(H.data.propB);
+      expect($state.current.data.propB).toEqual(HH.data.propB);
+      expect($state.current.data.propC).toEqual(HHH.data.propC);
+    }));
+  });
+
+  describe('html5Mode compatibility', function() {
+
+    it('should generate non-hashbang URLs in HTML5 mode', inject(function ($state) {
+      expect($state.href("about.person", { person: "bob" })).toEqual("#/about/bob");
+      locationProvider.html5Mode(true);
       expect($state.href("about.person", { person: "bob" })).toEqual("/about/bob");
-      expect($state.href("about.person.item", { person: "bob", id: null })).toEqual("/about/bob/");
     }));
   });
 });
