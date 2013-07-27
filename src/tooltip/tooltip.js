@@ -41,6 +41,15 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position' ] )
 	};
 
   /**
+   * This allows you to extend the set of trigger mappings available. E.g.:
+   *
+   *   $tooltipProvider.setTriggers( 'openTrigger': 'closeTrigger' );
+   */
+  this.setTriggers = function setTriggers ( triggers ) {
+    angular.extend( triggerMap, triggers );
+  };
+
+  /**
    * This is a helper function for translating camel-case to snake-case.
    */
   function snake_case(name){
@@ -55,7 +64,7 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position' ] )
    * Returns the actual instance of the $tooltip service.
    * TODO support multiple triggers
    */
-  this.$get = [ '$window', '$compile', '$timeout', '$parse', '$document', '$position', function ( $window, $compile, $timeout, $parse, $document, $position ) {
+  this.$get = [ '$window', '$compile', '$timeout', '$parse', '$document', '$position', '$interpolate', function ( $window, $compile, $timeout, $parse, $document, $position, $interpolate ) {
     return function $tooltip ( type, prefix, defaultTriggerShow ) {
       var options = angular.extend( {}, defaultOptions, globalOptions );
 
@@ -92,11 +101,13 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position' ] )
       var directiveName = snake_case( type );
       var triggers = setTriggers( undefined );
 
+      var startSym = $interpolate.startSymbol();
+      var endSym = $interpolate.endSymbol();
       var template = 
         '<'+ directiveName +'-popup '+
-          'title="{{tt_title}}" '+
-          'content="{{tt_content}}" '+
-          'placement="{{tt_placement}}" '+
+          'title="'+startSym+'tt_title'+endSym+'" '+
+          'content="'+startSym+'tt_content'+endSym+'" '+
+          'placement="'+startSym+'tt_placement'+endSym+'" '+
           'animation="tt_animation()" '+
           'is-open="tt_isOpen"'+
           '>'+
@@ -110,6 +121,7 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position' ] )
           var transitionTimeout;
           var popupTimeout;
           var $body;
+          var appendToBody = angular.isDefined( options.appendToBody ) ? options.appendToBody : false;
 
           // By default, the tooltip is not open.
           // TODO add ability to start tooltip opened
@@ -161,7 +173,7 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position' ] )
             
             // Now we add it to the DOM because need some info about it. But it's not 
             // visible yet anyway.
-            if ( options.appendToBody ) {
+            if ( appendToBody ) {
                 $body = $body || $document.find( 'body' );
                 $body.append( tooltip );
             } else {
@@ -169,7 +181,7 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position' ] )
             }
 
             // Get the position of the directive element.
-            position = options.appendToBody ? $position.offset( element ) : $position.position( element );
+            position = appendToBody ? $position.offset( element ) : $position.position( element );
 
             // Get the height and width of the tooltip so we can center it.
             ttWidth = tooltip.prop( 'offsetWidth' );
@@ -178,32 +190,42 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position' ] )
             // Calculate the tooltip's top and left coordinates to center it with
             // this directive.
             switch ( scope.tt_placement ) {
+              case 'mouse':
+                var mousePos = $position.mouse();
+                ttPosition = {
+                  top: mousePos.y,
+                  left: mousePos.x
+                };
+                break;
               case 'right':
                 ttPosition = {
-                  top: (position.top + position.height / 2 - ttHeight / 2) + 'px',
-                  left: (position.left + position.width) + 'px'
+                  top: position.top + position.height / 2 - ttHeight / 2,
+                  left: position.left + position.width
                 };
                 break;
               case 'bottom':
                 ttPosition = {
-                  top: (position.top + position.height) + 'px',
-                  left: (position.left + position.width / 2 - ttWidth / 2) + 'px'
+                  top: position.top + position.height,
+                  left: position.left + position.width / 2 - ttWidth / 2
                 };
                 break;
               case 'left':
                 ttPosition = {
-                  top: (position.top + position.height / 2 - ttHeight / 2) + 'px',
-                  left: (position.left - ttWidth) + 'px'
+                  top: position.top + position.height / 2 - ttHeight / 2,
+                  left: position.left - ttWidth
                 };
                 break;
               default:
                 ttPosition = {
-                  top: (position.top - ttHeight) + 'px',
-                  left: (position.left + position.width / 2 - ttWidth / 2) + 'px'
+                  top: position.top - ttHeight,
+                  left: position.left + position.width / 2 - ttWidth / 2
                 };
                 break;
             }
-            
+
+            ttPosition.top += 'px';
+            ttPosition.left += 'px';
+
             // Now set the calculated positioning.
             tooltip.css( ttPosition );
               
@@ -254,8 +276,8 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position' ] )
           });
 
           attrs.$observe( prefix+'Trigger', function ( val ) {
-            element.unbind( triggers.show );
-            element.unbind( triggers.hide );
+            element.unbind( triggers.show, showTooltipBind );
+            element.unbind( triggers.hide, hideTooltipBind );
 
             triggers = setTriggers( val );
 
@@ -267,22 +289,27 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position' ] )
             }
           });
 
+          attrs.$observe( prefix+'AppendToBody', function ( val ) {
+            appendToBody = angular.isDefined( val ) ? $parse( val )( scope ) : appendToBody;
+          });
+
           // if a tooltip is attached to <body> we need to remove it on
           // location change as its parent scope will probably not be destroyed
           // by the change.
-          if ( options.appendToBody ) {
+          if ( appendToBody ) {
             scope.$on('$locationChangeSuccess', function closeTooltipOnLocationChangeSuccess () {
             if ( scope.tt_isOpen ) {
               hide();
             }
           });
           }
-          
-          // if this trigger element is destroyed while the tooltip is open, we
-          // need to close the tooltip.
-          scope.$on('$destroy', function closeTooltipOnDestroy () {
+
+          // Make sure tooltip is destroyed and removed.
+          scope.$on('$destroy', function onDestroyTooltip() {
             if ( scope.tt_isOpen ) {
               hide();
+            } else {
+              tooltip.remove();
             }
           });
         }

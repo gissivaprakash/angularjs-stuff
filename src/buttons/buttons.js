@@ -14,24 +14,17 @@ angular.module('ui.bootstrap.buttons', [])
     require:'ngModel',
     link:function (scope, element, attrs, ngModelCtrl) {
 
-      var value = scope.$eval(attrs.btnRadio);
-
       //model -> UI
-      scope.$watch(function () {
-        return ngModelCtrl.$modelValue;
-      }, function (modelValue) {
-        if (angular.equals(modelValue, value)){
-          element.addClass(activeClass);
-        } else {
-          element.removeClass(activeClass);
-        }
-      });
+      ngModelCtrl.$render = function () {
+        element.toggleClass(activeClass, angular.equals(ngModelCtrl.$modelValue, scope.$eval(attrs.btnRadio)));
+      };
 
       //ui->model
       element.bind(toggleEvent, function () {
         if (!element.hasClass(activeClass)) {
           scope.$apply(function () {
-            ngModelCtrl.$setViewValue(value);
+            ngModelCtrl.$setViewValue(scope.$eval(attrs.btnRadio));
+            ngModelCtrl.$render();
           });
         }
       });
@@ -48,27 +41,26 @@ angular.module('ui.bootstrap.buttons', [])
     require:'ngModel',
     link:function (scope, element, attrs, ngModelCtrl) {
 
-      var trueValue = scope.$eval(attrs.btnCheckboxTrue);
-      var falseValue = scope.$eval(attrs.btnCheckboxFalse);
+      function getTrueValue() {
+        var trueValue = scope.$eval(attrs.btnCheckboxTrue);
+        return angular.isDefined(trueValue) ? trueValue : true;
+      }
 
-      trueValue = angular.isDefined(trueValue) ? trueValue : true;
-      falseValue = angular.isDefined(falseValue) ? falseValue : false;
+      function getFalseValue() {
+        var falseValue = scope.$eval(attrs.btnCheckboxFalse);
+        return angular.isDefined(falseValue) ? falseValue : false;
+      }
 
       //model -> UI
-      scope.$watch(function () {
-        return ngModelCtrl.$modelValue;
-      }, function (modelValue) {
-        if (angular.equals(modelValue, trueValue)) {
-          element.addClass(activeClass);
-        } else {
-          element.removeClass(activeClass);
-        }
-      });
+      ngModelCtrl.$render = function () {
+        element.toggleClass(activeClass, angular.equals(ngModelCtrl.$modelValue, getTrueValue()));
+      };
 
       //ui->model
       element.bind(toggleEvent, function () {
         scope.$apply(function () {
-          ngModelCtrl.$setViewValue(element.hasClass(activeClass) ? falseValue : trueValue);
+          ngModelCtrl.$setViewValue(element.hasClass(activeClass) ? getFalseValue() : getTrueValue());
+          ngModelCtrl.$render();
         });
       });
     }
