@@ -13,7 +13,7 @@ module.exports = function (grunt) {
   // Default task.
   grunt.registerTask('default', ['jshint','build','karma:unit']);
   grunt.registerTask('build', ['clean','html2js','concat','recess:build','copy:assets']);
-  grunt.registerTask('release', ['clean','html2js','uglify','jshint','karma:unit','concat:index', 'recess:min','copy:assets','karma:e2e']);
+  grunt.registerTask('release', ['clean','html2js','uglify','jshint','karma:unit','concat:index', 'recess:min','copy:assets']);
   grunt.registerTask('test-watch', ['karma:watch']);
 
   // Print a timestamp (useful for when watching)
@@ -45,7 +45,8 @@ module.exports = function (grunt) {
         app: ['src/app/**/*.tpl.html'],
         common: ['src/common/**/*.tpl.html']
       },
-      less: ['src/less/stylesheet.less'] // recess:build doesn't accept ** in its file patterns
+      less: ['src/less/stylesheet.less'], // recess:build doesn't accept ** in its file patterns
+      lessWatch: ['src/less/**/*.less']
     },
     clean: ['<%= distdir %>/*'],
     copy: {
@@ -55,7 +56,6 @@ module.exports = function (grunt) {
     },
     karma: {
       unit: { options: karmaConfig('test/config/unit.js') },
-      e2e: { options: karmaConfig('test/config/e2e.js') },
       watch: { options: karmaConfig('test/config/unit.js', { singleRun:false, autoWatch: true}) }
     },
     html2js: {
@@ -153,11 +153,11 @@ module.exports = function (grunt) {
     },
     watch:{
       all: {
-        files:['<%= src.js %>', '<%= src.specs %>', '<%= src.less =>', '<%= src.tpl.app %>', '<%= src.tpl.common %>', '<%= src.html %>'],
+        files:['<%= src.js %>', '<%= src.specs %>', '<%= src.lessWatch %>', '<%= src.tpl.app %>', '<%= src.tpl.common %>', '<%= src.html %>'],
         tasks:['default','timestamp']
       },
       build: {
-        files:['<%= src.js %>', '<%= src.specs %>', '<%= src.less =>', '<%= src.tpl.app %>', '<%= src.tpl.common %>', '<%= src.html %>'],
+        files:['<%= src.js %>', '<%= src.specs %>', '<%= src.lessWatch %>', '<%= src.tpl.app %>', '<%= src.tpl.common %>', '<%= src.html %>'],
         tasks:['build','timestamp']
       }
     },
