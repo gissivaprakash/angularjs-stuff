@@ -25,6 +25,9 @@
 
 ## Animations:
   - http://flippinawesome.org/2013/08/05/animating-with-angularjs/
+  - 
+## Libraries
+  - [Angulartics - Analytics wrapper, very good integration](http://luisfarzati.github.io/angulartics/)
 
 ## Russian:
   - [Понимание областей видимости или Scope в AngularJS](http://habrahabr.ru/post/182670/)
