@@ -13,6 +13,7 @@ https://github.com/centralway/lungo-angular-bridge.git
 https://github.com/codef0rmer/angular-dragdrop.git
 https://github.com/crosbymichael/dockerui.git
 https://github.com/danielemoraschi/android-addressbook.git
+https://github.com/DanWahlin/CustomerManager.git
 https://github.com/diesire/gasviz.git
 https://github.com/dump247/angular.tree.git
 https://github.com/fullscale/dangle.git
@@ -35,7 +36,10 @@ https://github.com/trochette/Angular-Design-Patterns-Best-Practices.git
 https://github.com/twilson63/ngUpload.git
 https://github.com/yearofmoo-articles/AngularJS-Animation-Article.git
 <<<<<<< HEAD
+<<<<<<< HEAD
 https://github.com/EmmanuelOga/simple-angular-rails-app.git
 =======
 https://github.com/DanWahlin/CustomerManager.git
 >>>>>>> https://github.com/DanWahlin/CustomerManager.git
+=======
+>>>>>>> smaller changes
