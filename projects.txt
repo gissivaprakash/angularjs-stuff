@@ -34,4 +34,8 @@ https://github.com/tanz-sullamora/angular-i18n.git
 https://github.com/trochette/Angular-Design-Patterns-Best-Practices.git
 https://github.com/twilson63/ngUpload.git
 https://github.com/yearofmoo-articles/AngularJS-Animation-Article.git
+<<<<<<< HEAD
 https://github.com/EmmanuelOga/simple-angular-rails-app.git
+=======
+https://github.com/DanWahlin/CustomerManager.git
+>>>>>>> https://github.com/DanWahlin/CustomerManager.git
