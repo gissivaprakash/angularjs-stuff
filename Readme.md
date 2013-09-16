@@ -78,6 +78,10 @@ See [mindreframer/ng-slides](https://github.com/mindreframer/ng-slides) for more
       Tree widget for angularjs
        20 commits, last change: 2013-01-23 19:14:08, 31 stars, 14 forks
 
+    EmmanuelOga/simple-angular-rails-app:
+      Simple Angular App with a Rails backend
+       1 commits, last change: 2013-07-24 00:26:34, 31 stars, 9 forks
+
     fullscale/dangle:
       A set of AngularJS directives that provide common D3 visualizations for elasticsearch
        15 commits, last change: 2013-03-04 06:31:32, 226 stars, 21 forks
