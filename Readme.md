@@ -60,7 +60,7 @@ See [mindreframer/ng-slides](https://github.com/mindreframer/ng-slides) for more
 
     crosbymichael/dockerui:
       A web interface for docker. http://docker.io
-       56 commits, last change: 2013-07-15 05:10:11, 236 stars, 19 forks
+       74 commits, last change: 2013-09-11 13:24:20, 996 stars, 44 forks
 
     danielemoraschi/android-addressbook:
       Android addressbook replica with AngularJs
@@ -85,6 +85,10 @@ See [mindreframer/ng-slides](https://github.com/mindreframer/ng-slides) for more
     fullscale/dangle:
       A set of AngularJS directives that provide common D3 visualizations for elasticsearch
        15 commits, last change: 2013-03-04 06:31:32, 226 stars, 21 forks
+
+    iconara/ec2pricing:
+      EC2 Instance Types  Pricing information
+       120 commits, last change: 2013-06-03 05:56:42, 4 stars, 1 forks
 
     jmcunningham/AngularJS-Learning:
       A bunch of links to blog posts, articles, videos, etc for learning AngularJS
