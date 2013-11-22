@@ -1,18 +1,18 @@
-# ui-calendar directive [![Build Status](https://travis-ci.org/angular-ui/ui-calendar.png)](https://travis-ci.org/angular-ui/ui-calendar)
+# ui-calendar directive [![Build Status](https://travis-ci.org/angular-ui/ui-calendar.png?branch=master)](https://travis-ci.org/angular-ui/ui-calendar)
 
 A complete AngularJS directive for the Arshaw FullCalendar.
 
 # Requirements
-- ([fullcalendar.css](https://raw.github.com/angular-ui/angular-ui.github.com/master/lib/calendar/fullcalendar.css))
+- ([fullcalendar.css](https://raw.github.com/angular-ui/ui-calendar/gh-pages/bower_components/fullcalendar/fullcalendar.css))
 - ([JQuery](http://arshaw.com/js/fullcalendar-1.5.3/fullcalendar/gcal.js))
 - ([JQueryUI](http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js))
-- ([AngularJS](http://code.angularjs.org/1.0.4/angular.js))
-- ([fullcalendar.js](https://raw.github.com/angular-ui/angular-ui.github.com/master/lib/calendar/fullcalendar.js))
+- ([AngularJS](http://code.angularjs.org/1.2.1/angular.js))
+- ([fullcalendar.js](https://raw.github.com/angular-ui/ui-calendar/master/src/calendar.js))
 - optional - ([gcal-plugin](http://arshaw.com/js/fullcalendar-1.5.3/fullcalendar/gcal.js))
 
 # Testing
 
-We use testacular and jshint to ensure the quality of the code.  The easiest way to run these checks is to use grunt:
+We use karma and grunt to ensure the quality of the code. 
 
     npm install -g grunt-cli
     npm install
@@ -33,18 +33,20 @@ To your `components.json` file. Then run
 
 This will copy the ui-calendar files into your `components` folder, along with its dependencies. Load the script files in your application:
 
-    <script type="text/javascript" src="components/jquery/jquery.js"></script>
-    <script type="text/javascript" src="components/jquery-ui\ui\jquery-ui.custom.js"></script>
-    <script type="text/javascript" src="components/angular/angular.js"></script>
-    <script type="text/javascript" src="components/angular-ui-calendar/calendar.js"></script>
+    <script type="text/javascript" src="bower_components/jquery/jquery.js"></script>
+    <script type="text/javascript" src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+    <script type="text/javascript" src="bower_components/fullcalendar/fullcalendar.js"></script>
+    <script type="text/javascript" src="bower_components/fullcalendar/gcal.js"></script>
 
 Add the calendar module as a dependency to your application module:
 
     var myAppModule = angular.module('MyApp', ['ui.calendar'])
 
-Apply the directive to your div elements:
+Apply the directive to your div elements. The calendar must be supplied an array of decoumented event sources to render itself:
 
-    <div ui-calendar>
+    <div ui-calendar ng-model="eventSources"></div>
 
 ## Options
 
@@ -81,7 +83,7 @@ Note that all calendar options are passed directly into `fullCalendar`, so you w
 
 ## Accessing the calendar object
 
-To avoid potential issues, by default the calendar object is not available in the parent scope. Access the object by declaring a name:
+To avoid potential issues, by default the calendar object is not available in the parent scope. Access the object by declaring a calendar attribute name:
 
     <div ui-calendar="calendarOptions" ng-model="eventSources" calendar="myCalendar">
     
