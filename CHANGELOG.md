@@ -1,3 +1,36 @@
+# 0.4.0
+* Same as 0.3.21 just bumped to stable branch all new modifications will 
+occur on 0.5.x 
+
+# 0.3.21
+
+* #75 Fix issue with <pre> tags on response back, should also address #77
+
+# 0.3.20
+
+* #72 Add beforeSubmit callback
+
+# 0.3.19
+
+* Removed JQuery Dependency re: https://github.com/intelekshual
+
+# 0.3.18
+
+* Modified bower.json to allow for all future versions of angular and
+  jquery
+
+# 0.3.14 
+
+* Changed the way content of the upload iframe is obtained...
+
+# 0.3.13
+
+* cleaned up some unnecessary files to make distribution lean
+
+# 0.3.12
+
+* #56 added fixes for IE 9 and IE 10 from https://github.com/trov-codystebbins
+
 # 0.3.10
 
 * removed .DS_Store and corrected bower version
