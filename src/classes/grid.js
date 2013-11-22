@@ -467,8 +467,7 @@ var ngGrid = function ($scope, options, sortService, domUtilityService, $filter,
             angular.forEach(percentArray, function(colDef) {
                 // Get the ngColumn that matches the current column from columnDefs
                 var ngColumn = $scope.columns[indexMap[colDef.index]];
-                var t = colDef.width;
-                var percent = parseInt(t.slice(0, -1), 10) / 100;
+                var percent = parseFloat(colDef.width) / 100;
                 percentWidth += percent;
 
                 if (!ngColumn.visible) {
@@ -483,8 +482,7 @@ var ngGrid = function ($scope, options, sortService, domUtilityService, $filter,
                 var ngColumn = $scope.columns[indexMap[colDef.index]];
                 
                 // Calc the % relative to the amount of % reserved for the visible columns (that use % based widths)
-                var t = colDef.width;
-                var percent = parseInt(t.slice(0, -1), 10) / 100;
+                var percent = parseFloat(colDef.width) / 100;
                 if (hiddenPercent > 0) {
                     percent = percent / percentWidthUsed;
                 }
@@ -493,7 +491,7 @@ var ngGrid = function ($scope, options, sortService, domUtilityService, $filter,
                 }
 
                 var pixelsForPercentBasedWidth = self.rootDim.outerWidth * percentWidth;
-                ngColumn.width = Math.floor(pixelsForPercentBasedWidth * percent);
+                ngColumn.width = pixelsForPercentBasedWidth * percent;
                 totalWidth += ngColumn.width;
             });
         }
@@ -805,7 +803,7 @@ var ngGrid = function ($scope, options, sortService, domUtilityService, $filter,
             newRange = new ngRange(Math.max(0, rowIndex - EXCESS_ROWS), rowIndex + self.minRowsToRender() + EXCESS_ROWS);
         } else {
             var maxLen = $scope.configGroups.length > 0 ? self.rowFactory.parsedData.length : self.data.length;
-            newRange = new ngRange(0, Math.max(maxLen, self.minRowsToRender() + EXCESS_ROWS));
+            newRange = new ngRange(0, Math.min(maxLen, self.minRowsToRender() + EXCESS_ROWS));
         }
         self.prevScrollTop = scrollTop;
         self.rowFactory.UpdateViewableRange(newRange);
