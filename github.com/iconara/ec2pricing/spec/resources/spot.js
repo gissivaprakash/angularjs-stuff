@@ -8,7 +8,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "stdSpot",
                         "sizes": [
                             {
-                                "size": "sm",
+                                "size": "m1.small",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -25,7 +25,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "med",
+                                "size": "m1.medium",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -42,7 +42,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "lg",
+                                "size": "m1.large",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -59,7 +59,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xl",
+                                "size": "m1.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -81,7 +81,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "secgenstdSpot",
                         "sizes": [
                             {
-                                "size": "xl",
+                                "size": "m3.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -98,7 +98,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xxl",
+                                "size": "m3.2xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -113,14 +113,14 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                         }
                                     }
                                 ]
-                            },
+                            }
                         ]
                     },          
                     {
                         "type": "uSpot",
                         "sizes": [
                             {
-                                "size": "u",
+                                "size": "t1.micro",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -142,7 +142,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "hiMemSpot",
                         "sizes": [
                             {
-                                "size": "xl",
+                                "size": "m2.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -159,7 +159,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xxl",
+                                "size": "m2.2xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -176,7 +176,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xxxxl",
+                                "size": "m2.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -198,7 +198,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "hiCPUSpot",
                         "sizes": [
                             {
-                                "size": "med",
+                                "size": "c1.medium",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -215,12 +215,12 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xl",
+                                "size": "c1.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "0.07"
+                                            "USD": "0.09"
                                         }
                                     },
                                     {
@@ -230,19 +230,104 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                         }
                                     }
                                 ]
-                            }
+                            },
+                            {
+                                  "size": "c3.large",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.032"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.104"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.064"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.207"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.2xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.16"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.414"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.4xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.5"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.828"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.8xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.513"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "1.656"
+                                          }
+                                      }
+                                  ]
+                            },
                         ]
                     },
                     {
                         "type": "clusterComputeI",
                         "sizes": [
                             {
-                                "size": "xxxxl",
+                                "size": "cc1.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "1.7"
+                                            "USD": "0.208"
                                         }
                                     },
                                     {
@@ -254,12 +339,12 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             }, 
                             {
-                                "size": "xxxxxxxxl",
+                                "size": "cc2.8xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "11.0"
+                                            "USD": "0.27"
                                         }
                                     },
                                     {
@@ -273,10 +358,49 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         ]
                     },
                     {
-                        "type": "clusterGPUI",
+                        "type": "clusterHiMemSpot",
                         "sizes": [
                             {
-                                "size": "xxxxl",
+                                "size": "cr1.8xlarge",
+                                "valueColumns": [
+                                    {
+                                        "name": "linux",
+                                        "prices": {
+                                            "USD": "0.343"
+                                        }
+                                    },
+                                    {
+                                        "name": "mswin",
+                                        "prices": {
+                                            "USD": "N/A*"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "GPUI",
+                        "sizes": [
+                            {
+                                  "size": "g2.2xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.075"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.104"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                "size": "cg1.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -305,7 +429,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "stdSpot",
                         "sizes": [
                             {
-                                "size": "sm",
+                                "size": "m1.small",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -322,7 +446,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "med",
+                                "size": "m1.medium",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -339,12 +463,12 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "lg",
+                                "size": "m1.large",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "0.1"
+                                            "USD": "0.042"
                                         }
                                     },
                                     {
@@ -356,7 +480,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xl",
+                                "size": "m1.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -378,46 +502,46 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "secgenstdSpot",
                         "sizes": [
                             {
-                                "size": "xl",
+                                "size": "m3.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.092"
                                         }
                                     },
                                     {
                                         "name": "mswin",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.22"
                                         }
                                     }
                                 ]
                             },
                             {
-                                "size": "xxl",
+                                "size": "m3.2xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.183"
                                         }
                                     },
                                     {
                                         "name": "mswin",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.439"
                                         }
                                     }
                                 ]
-                            },
+                            }
                         ]
                     },          
                     {
                         "type": "uSpot",
                         "sizes": [
                             {
-                                "size": "u",
+                                "size": "t1.micro",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -439,7 +563,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "hiMemSpot",
                         "sizes": [
                             {
-                                "size": "xl",
+                                "size": "m2.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -456,7 +580,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xxl",
+                                "size": "m2.2xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -473,7 +597,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xxxxl",
+                                "size": "m2.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -495,7 +619,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "hiCPUSpot",
                         "sizes": [
                             {
-                                "size": "med",
+                                "size": "c1.medium",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -512,7 +636,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xl",
+                                "size": "c1.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -527,14 +651,99 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                         }
                                     }
                                 ]
-                            }
+                            },
+                            {
+                                  "size": "c3.large",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.032"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.104"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.064"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.207"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.2xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.25"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.414"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.4xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.257"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.828"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.8xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.513"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "1.656"
+                                          }
+                                      }
+                                  ]
+                            },
                         ]
                     },
                     {
                         "type": "clusterComputeI",
                         "sizes": [
                             {
-                                "size": "xxxxl",
+                                "size": "cc1.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -551,7 +760,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             }, 
                             {
-                                "size": "xxxxxxxxl",
+                                "size": "cc2.8xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -570,10 +779,49 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         ]
                     },
                     {
-                        "type": "clusterGPUI",
+                        "type": "clusterHiMemSpot",
                         "sizes": [
                             {
-                                "size": "xxxxl",
+                                "size": "cr1.8xlarge",
+                                "valueColumns": [
+                                    {
+                                        "name": "linux",
+                                        "prices": {
+                                            "USD": "0.343"
+                                        }
+                                    },
+                                    {
+                                        "name": "mswin",
+                                        "prices": {
+                                            "USD": "N/A*"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "GPUI",
+                        "sizes": [
+                            {
+                                  "size": "g2.2xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.075"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.104"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                "size": "cg1.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -602,7 +850,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "stdSpot",
                         "sizes": [
                             {
-                                "size": "sm",
+                                "size": "m1.small",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -619,7 +867,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "med",
+                                "size": "m1.medium",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -636,7 +884,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "lg",
+                                "size": "m1.large",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -653,7 +901,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xl",
+                                "size": "m1.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -675,46 +923,46 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "secgenstdSpot",
                         "sizes": [
                             {
-                                "size": "xl",
+                                "size": "m3.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.088"
                                         }
                                     },
                                     {
                                         "name": "mswin",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.168"
                                         }
                                     }
                                 ]
                             },
                             {
-                                "size": "xxl",
+                                "size": "m3.2xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.175"
                                         }
                                     },
                                     {
                                         "name": "mswin",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.335"
                                         }
                                     }
                                 ]
-                            },
+                            }
                         ]
                     },          
                     {
                         "type": "uSpot",
                         "sizes": [
                             {
-                                "size": "u",
+                                "size": "t1.micro",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -736,7 +984,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "hiMemSpot",
                         "sizes": [
                             {
-                                "size": "xl",
+                                "size": "m2.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -753,12 +1001,12 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xxl",
+                                "size": "m2.2xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "0.283"
+                                            "USD": "0.118"
                                         }
                                     },
                                     {
@@ -770,7 +1018,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xxxxl",
+                                "size": "m2.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -792,7 +1040,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "hiCPUSpot",
                         "sizes": [
                             {
-                                "size": "med",
+                                "size": "c1.medium",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -809,7 +1057,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xl",
+                                "size": "c1.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -824,14 +1072,99 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                         }
                                     }
                                 ]
-                            }
+                            },
+                            {
+                                  "size": "c3.large",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.2xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.4xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.8xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      }
+                                  ]
+                            },
                         ]
                     },
                     {
                         "type": "clusterComputeI",
                         "sizes": [
                             {
-                                "size": "xxxxl",
+                                "size": "cc1.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -848,7 +1181,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             }, 
                             {
-                                "size": "xxxxxxxxl",
+                                "size": "cc2.8xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -867,10 +1200,49 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         ]
                     },
                     {
-                        "type": "clusterGPUI",
+                        "type": "clusterHiMemSpot",
                         "sizes": [
                             {
-                                "size": "xxxxl",
+                                "size": "cr1.8xlarge",
+                                "valueColumns": [
+                                    {
+                                        "name": "linux",
+                                        "prices": {
+                                            "USD": "N/A*"
+                                        }
+                                    },
+                                    {
+                                        "name": "mswin",
+                                        "prices": {
+                                            "USD": "N/A*"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "GPUI",
+                        "sizes": [
+                            {
+                                  "size": "g2.2xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.081"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.11"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                "size": "cg1.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -899,7 +1271,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "stdSpot",
                         "sizes": [
                             {
-                                "size": "sm",
+                                "size": "m1.small",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -916,7 +1288,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "med",
+                                "size": "m1.medium",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -933,7 +1305,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "lg",
+                                "size": "m1.large",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -950,7 +1322,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xl",
+                                "size": "m1.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -972,46 +1344,46 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "secgenstdSpot",
                         "sizes": [
                             {
-                                "size": "xl",
+                                "size": "m3.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.14"
                                         }
                                     },
                                     {
                                         "name": "mswin",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.268"
                                         }
                                     }
                                 ]
                             },
                             {
-                                "size": "xxl",
+                                "size": "m3.2xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.28"
                                         }
                                     },
                                     {
                                         "name": "mswin",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.536"
                                         }
                                     }
                                 ]
-                            },
+                            }
                         ]
                     },          
                     {
                         "type": "uSpot",
                         "sizes": [
                             {
-                                "size": "u",
+                                "size": "t1.micro",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1033,7 +1405,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "hiMemSpot",
                         "sizes": [
                             {
-                                "size": "xl",
+                                "size": "m2.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1050,7 +1422,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xxl",
+                                "size": "m2.2xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1067,7 +1439,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xxxxl",
+                                "size": "m2.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1089,7 +1461,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "hiCPUSpot",
                         "sizes": [
                             {
-                                "size": "med",
+                                "size": "c1.medium",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1106,7 +1478,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xl",
+                                "size": "c1.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1121,14 +1493,99 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                         }
                                     }
                                 ]
-                            }
+                            },
+                            {
+                                  "size": "c3.large",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.051"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.124"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.101"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.248"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.2xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.203"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.497"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.4xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.406"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.994"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.8xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.811"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "1.987"
+                                          }
+                                      }
+                                  ]
+                            },
                         ]
                     },
                     {
                         "type": "clusterComputeI",
                         "sizes": [
                             {
-                                "size": "xxxxl",
+                                "size": "cc1.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1145,7 +1602,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             }, 
                             {
-                                "size": "xxxxxxxxl",
+                                "size": "cc2.8xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1164,10 +1621,49 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         ]
                     },
                     {
-                        "type": "clusterGPUI",
+                        "type": "clusterHiMemSpot",
                         "sizes": [
                             {
-                                "size": "xxxxl",
+                                "size": "cr1.8xlarge",
+                                "valueColumns": [
+                                    {
+                                        "name": "linux",
+                                        "prices": {
+                                            "USD": "0.343"
+                                        }
+                                    },
+                                    {
+                                        "name": "mswin",
+                                        "prices": {
+                                            "USD": "N/A*"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "GPUI",
+                        "sizes": [
+                            {
+                                  "size": "g2.2xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.081"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.103"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                "size": "cg1.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1196,7 +1692,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "stdSpot",
                         "sizes": [
                             {
-                                "size": "sm",
+                                "size": "m1.small",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1213,7 +1709,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "med",
+                                "size": "m1.medium",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1230,7 +1726,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "lg",
+                                "size": "m1.large",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1247,7 +1743,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xl",
+                                "size": "m1.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1269,46 +1765,46 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "secgenstdSpot",
                         "sizes": [
                             {
-                                "size": "xl",
+                                "size": "m3.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.088"
                                         }
                                     },
                                     {
                                         "name": "mswin",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.168"
                                         }
                                     }
                                 ]
                             },
                             {
-                                "size": "xxl",
+                                "size": "m3.2xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.175"
                                         }
                                     },
                                     {
                                         "name": "mswin",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.335"
                                         }
                                     }
                                 ]
-                            },
+                            }
                         ]
                     },          
                     {
                         "type": "uSpot",
                         "sizes": [
                             {
-                                "size": "u",
+                                "size": "t1.micro",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1330,7 +1826,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "hiMemSpot",
                         "sizes": [
                             {
-                                "size": "xl",
+                                "size": "m2.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1347,7 +1843,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xxl",
+                                "size": "m2.2xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1364,7 +1860,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xxxxl",
+                                "size": "m2.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1386,7 +1882,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "hiCPUSpot",
                         "sizes": [
                             {
-                                "size": "med",
+                                "size": "c1.medium",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1403,7 +1899,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xl",
+                                "size": "c1.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1418,14 +1914,99 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                         }
                                     }
                                 ]
-                            }
+                            },
+                            {
+                                  "size": "c3.large",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.056"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.124"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.112"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.248"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.2xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.224"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.497"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.4xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.447"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.994"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.8xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.894"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "1.987"
+                                          }
+                                      }
+                                  ]
+                            },
                         ]
                     },
                     {
                         "type": "clusterComputeI",
                         "sizes": [
                             {
-                                "size": "xxxxl",
+                                "size": "cc1.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1442,7 +2023,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             }, 
                             {
-                                "size": "xxxxxxxxl",
+                                "size": "cc2.8xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1461,10 +2042,49 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         ]
                     },
                     {
-                        "type": "clusterGPUI",
+                        "type": "clusterHiMemSpot",
                         "sizes": [
                             {
-                                "size": "xxxxl",
+                                "size": "cr1.8xlarge",
+                                "valueColumns": [
+                                    {
+                                        "name": "linux",
+                                        "prices": {
+                                            "USD": "N/A*"
+                                        }
+                                    },
+                                    {
+                                        "name": "mswin",
+                                        "prices": {
+                                            "USD": "N/A*"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "GPUI",
+                        "sizes": [
+                            {
+                                  "size": "g2.2xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                "size": "cg1.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1493,7 +2113,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "stdSpot",
                         "sizes": [
                             {
-                                "size": "sm",
+                                "size": "m1.small",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1510,7 +2130,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "med",
+                                "size": "m1.medium",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1527,7 +2147,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "lg",
+                                "size": "m1.large",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1544,7 +2164,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xl",
+                                "size": "m1.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1566,46 +2186,46 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "secgenstdSpot",
                         "sizes": [
                             {
-                                "size": "xl",
+                                "size": "m3.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.148"
                                         }
                                     },
                                     {
                                         "name": "mswin",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.295"
                                         }
                                     }
                                 ]
                             },
                             {
-                                "size": "xxl",
+                                "size": "m3.2xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.295"
                                         }
                                     },
                                     {
                                         "name": "mswin",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.589"
                                         }
                                     }
                                 ]
-                            },
+                            }
                         ]
                     },          
                     {
                         "type": "uSpot",
                         "sizes": [
                             {
-                                "size": "u",
+                                "size": "t1.micro",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1627,7 +2247,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "hiMemSpot",
                         "sizes": [
                             {
-                                "size": "xl",
+                                "size": "m2.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1644,7 +2264,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xxl",
+                                "size": "m2.2xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1661,7 +2281,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xxxxl",
+                                "size": "m2.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1683,7 +2303,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "hiCPUSpot",
                         "sizes": [
                             {
-                                "size": "med",
+                                "size": "c1.medium",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1700,7 +2320,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xl",
+                                "size": "c1.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1715,14 +2335,99 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                         }
                                     }
                                 ]
-                            }
+                            },
+                            {
+                                  "size": "c3.large",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.061"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.138"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.122"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.275"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.2xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.244"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.551"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.4xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.489"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "1.101"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.8xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.0001"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "2.202"
+                                          }
+                                      }
+                                  ]
+                            },
                         ]
                     },
                     {
                         "type": "clusterComputeI",
                         "sizes": [
                             {
-                                "size": "xxxxl",
+                                "size": "cc1.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1739,12 +2444,12 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             }, 
                             {
-                                "size": "xxxxxxxxl",
+                                "size": "cc2.8xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "N/A*"
+                                            "USD": "0.892"
                                         }
                                     },
                                     {
@@ -1758,10 +2463,49 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         ]
                     },
                     {
-                        "type": "clusterGPUI",
+                        "type": "clusterHiMemSpot",
                         "sizes": [
                             {
-                                "size": "xxxxl",
+                                "size": "cr1.8xlarge",
+                                "valueColumns": [
+                                    {
+                                        "name": "linux",
+                                        "prices": {
+                                            "USD": "0.982"
+                                        }
+                                    },
+                                    {
+                                        "name": "mswin",
+                                        "prices": {
+                                            "USD": "N/A*"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "GPUI",
+                        "sizes": [
+                            {
+                                  "size": "g2.2xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                "size": "cg1.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1790,7 +2534,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "stdSpot",
                         "sizes": [
                             {
-                                "size": "sm",
+                                "size": "m1.small",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1807,7 +2551,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "med",
+                                "size": "m1.medium",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1824,7 +2568,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "lg",
+                                "size": "m1.large",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1841,7 +2585,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xl",
+                                "size": "m1.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1863,46 +2607,46 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "secgenstdSpot",
                         "sizes": [
                             {
-                                "size": "xl",
+                                "size": "m3.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.088"
                                         }
                                     },
                                     {
                                         "name": "mswin",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.168"
                                         }
                                     }
                                 ]
                             },
                             {
-                                "size": "xxl",
+                                "size": "m3.2xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.175"
                                         }
                                     },
                                     {
                                         "name": "mswin",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.335"
                                         }
                                     }
                                 ]
-                            },
+                            }
                         ]
                     },          
                     {
                         "type": "uSpot",
                         "sizes": [
                             {
-                                "size": "u",
+                                "size": "t1.micro",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1924,7 +2668,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "hiMemSpot",
                         "sizes": [
                             {
-                                "size": "xl",
+                                "size": "m2.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1941,7 +2685,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xxl",
+                                "size": "m2.2xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1958,7 +2702,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xxxxl",
+                                "size": "m2.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1980,7 +2724,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "hiCPUSpot",
                         "sizes": [
                             {
-                                "size": "med",
+                                "size": "c1.medium",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -1997,7 +2741,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xl",
+                                "size": "c1.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -2012,14 +2756,99 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                         }
                                     }
                                 ]
-                            }
+                            },
+                            {
+                                  "size": "c3.large",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.0001"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.124"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.056"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.248"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.2xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.112"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.497"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.4xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.447"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "0.994"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.8xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "0.447"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "1.987"
+                                          }
+                                      }
+                                  ]
+                            },
                         ]
                     },
                     {
                         "type": "clusterComputeI",
                         "sizes": [
                             {
-                                "size": "xxxxl",
+                                "size": "cc1.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -2036,7 +2865,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             }, 
                             {
-                                "size": "xxxxxxxxl",
+                                "size": "cc2.8xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -2055,10 +2884,49 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         ]
                     },
                     {
-                        "type": "clusterGPUI",
+                        "type": "clusterHiMemSpot",
                         "sizes": [
                             {
-                                "size": "xxxxl",
+                                "size": "cr1.8xlarge",
+                                "valueColumns": [
+                                    {
+                                        "name": "linux",
+                                        "prices": {
+                                            "USD": "N/A*"
+                                        }
+                                    },
+                                    {
+                                        "name": "mswin",
+                                        "prices": {
+                                            "USD": "N/A*"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "GPUI",
+                        "sizes": [
+                            {
+                                  "size": "g2.2xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                "size": "cg1.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -2087,7 +2955,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "stdSpot",
                         "sizes": [
                             {
-                                "size": "sm",
+                                "size": "m1.small",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -2104,7 +2972,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "med",
+                                "size": "m1.medium",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -2121,7 +2989,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "lg",
+                                "size": "m1.large",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -2138,7 +3006,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xl",
+                                "size": "m1.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -2160,46 +3028,46 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "secgenstdSpot",
                         "sizes": [
                             {
-                                "size": "xl",
+                                "size": "m3.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.092"
                                         }
                                     },
                                     {
                                         "name": "mswin",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.172"
                                         }
                                     }
                                 ]
                             },
                             {
-                                "size": "xxl",
+                                "size": "m3.2xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.185"
                                         }
                                     },
                                     {
                                         "name": "mswin",
                                         "prices": {
-                                            "USD": "N/A"
+                                            "USD": "0.345"
                                         }
                                     }
                                 ]
-                            },
+                            }
                         ]
                     },          
                     {
                         "type": "uSpot",
                         "sizes": [
                             {
-                                "size": "u",
+                                "size": "t1.micro",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -2221,7 +3089,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "hiMemSpot",
                         "sizes": [
                             {
-                                "size": "xl",
+                                "size": "m2.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -2238,7 +3106,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xxl",
+                                "size": "m2.2xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -2255,7 +3123,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xxxxl",
+                                "size": "m2.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -2277,7 +3145,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         "type": "hiCPUSpot",
                         "sizes": [
                             {
-                                "size": "med",
+                                "size": "c1.medium",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -2294,7 +3162,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             },
                             {
-                                "size": "xl",
+                                "size": "c1.xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -2309,14 +3177,99 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                         }
                                     }
                                 ]
-                            }
+                            },
+                            {
+                                  "size": "c3.large",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.2xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.4xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                  "size": "c3.8xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      }
+                                  ]
+                            },
                         ]
                     },
                     {
                         "type": "clusterComputeI",
                         "sizes": [
                             {
-                                "size": "xxxxl",
+                                "size": "cc1.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -2333,7 +3286,7 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                                 ]
                             }, 
                             {
-                                "size": "xxxxxxxxl",
+                                "size": "cc2.8xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",
@@ -2352,10 +3305,49 @@ callback({"vers": 0.01,"config": {"rate": "perhr","valueColumns": ["linux", "msw
                         ]
                     },
                     {
-                        "type": "clusterGPUI",
+                        "type": "clusterHiMemSpot",
                         "sizes": [
                             {
-                                "size": "xxxxl",
+                                "size": "cr1.8xlarge",
+                                "valueColumns": [
+                                    {
+                                        "name": "linux",
+                                        "prices": {
+                                            "USD": "N/A*"
+                                        }
+                                    },
+                                    {
+                                        "name": "mswin",
+                                        "prices": {
+                                            "USD": "N/A*"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "GPUI",
+                        "sizes": [
+                            {
+                                  "size": "g2.2xlarge",
+                                  "valueColumns": [
+                                      {
+                                          "name": "linux",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      },
+                                      {
+                                          "name": "mswin",
+                                          "prices": {
+                                              "USD": "N/A*"
+                                          }
+                                      }
+                                  ]
+                            },
+                            {
+                                "size": "cg1.4xlarge",
                                 "valueColumns": [
                                     {
                                         "name": "linux",

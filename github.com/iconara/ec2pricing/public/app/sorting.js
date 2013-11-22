@@ -1,6 +1,6 @@
 (function () {
   var IO_SORT_ORDER = ["low", "moderate", "high", "very high"]
-  var TYPE_CLASS_SORT_ORDER = ["m1", "m3", "t1", "c1", "m2", "cc1", "cc2", "cg1", "hi1", "hs1", "cr1"]
+  var TYPE_CLASS_SORT_ORDER = ["m1", "m3", "t1", "c1", "c3", "m2", "g2", "cc1", "cc2", "cg1", "hi1", "hs1", "cr1"]
   var TYPE_SIZE_SORT_ORDER = ["micro", "small", "medium", "large", "xlarge", "2xlarge", "4xlarge", "8xlarge"]
 
   var module = angular.module("ec2pricing.sorting", [])
@@ -17,8 +17,8 @@
       availableTypes = sortInstanceTypesByType(availableTypes, sortAscending)
     } else if (sortField == "price") {
       availableTypes = sortInstanceTypesByPrice(availableTypes, selectedOs, sortAscending)
-    } else if (sortField == "spotPrice") {
-      // TODO: move instances without spotPrice to the unavailable list
+    } else if (sortField == "spotPrice" || sortField == "emrPrice") {
+      // TODO: move instances without spotPrice/emrPrice to the unavailable list and sort the right value
       availableTypes = sortInstanceTypesByPrice(availableTypes, selectedOs, sortAscending)
     } else if (sortField == "disk_size") {
       var newAvailableTypes = []

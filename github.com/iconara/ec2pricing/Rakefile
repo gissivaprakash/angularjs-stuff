@@ -6,7 +6,19 @@ require 'aws'
 require 'multi_json'
 require 'nokogiri'
 require 'ec2_pricing'
+require 'ec2_pricing/defaults'
 
+
+begin
+  require 'rspec/core/rake_task'
+
+  RSpec::Core::RakeTask.new(:spec) do |r|
+    r.rspec_opts = '--tty'
+  end
+
+  task :spec => 'update:resources'
+rescue LoadError
+end
 
 namespace :cache do
   task :data do
@@ -23,6 +35,22 @@ namespace :update do
     $stderr.puts("Writing #{local_path}")
     FileUtils.mkdir_p(File.dirname(local_path))
     File.write(local_path, @data)
+  end
+
+  task :resources do
+    Ec2Pricing::AWS_PRICING_URLS.each_value do |url|
+      open(url) do |r|
+        file_name = File.basename(url)
+        File.open("spec/resources/#{file_name}", 'w') do |w|
+          w.write(r.read)
+        end
+      end
+    end
+    open(Ec2Pricing::AWS_INSTANCE_TYPES_URL) do |r|
+      File.open('spec/resources/instance-types.html', 'w') do |w|
+        w.write(r.read)
+      end
+    end
   end
 end
 
