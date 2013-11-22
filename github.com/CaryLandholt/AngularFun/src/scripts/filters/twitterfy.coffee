@@ -1,3 +1,6 @@
-angular.module('app').filter 'twitterfy', ['$log', ($log) -> (username) ->
-	"@#{username}"
-]
+class Twitterfy
+	constructor: ($log) ->
+		return (username) ->
+			"@#{username}"
+
+angular.module('app').filter 'twitterfy', ['$log', Twitterfy]
