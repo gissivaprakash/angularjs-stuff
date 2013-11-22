@@ -17,7 +17,7 @@ $ bower install
 $ grunt watch
 ```
 
-Finally, open `build/index.html` in your browser.
+Finally, open `file:///path/to/ng-boilerplate/build/index.html` in your browser.
 
 Happy hacking!
 
@@ -73,8 +73,6 @@ At a high level, the structure looks roughly like this:
 
 ```
 ng-boilerplate/
-  |- build/
-  |  |- angular/
   |- grunt-tasks/
   |- karma/
   |- src/
@@ -90,6 +88,8 @@ ng-boilerplate/
   |  |- angular-bootstrap/
   |  |- bootstrap/
   |  |- placeholders/
+  |- .bowerrc
+  |- bower.json
   |- build.config.js
   |- Gruntfile.js
   |- module.prefix
@@ -101,17 +101,15 @@ What follows is a brief description of each entry, but most directories contain
 their own `README.md` file with additional documentation, so browse around to
 learn more.
 
-- `build/` - files needed to make everything happen, but *not* libraries our
-  application uses. [Read more &raquo;](build/README.md)
 - `karma/` - test configuration.
 - `src/` - our application sources. [Read more &raquo;](src/README.md)
 - `vendor/` - third-party libraries. [Bower](http://bower.io) will install
   packages here. Anything added to this directory will need to be manually added
-  to `Gruntfile.js` and `karma/karma-unit.js` to be picked up by the build
+  to `build.config.js` and `karma/karma-unit.js` to be picked up by the build
   system.
 - `.bowerrc` - the Bower configuration file. This tells Bower to install
   components into the `vendor/` directory.
-- `bower.js` - this is our project configuration for Bower and it contains the
+- `bower.json` - this is our project configuration for Bower and it contains the
   list of Bower dependencies we need.
 - `build.config.js` - our customizable build settings; see "The Build System"
   below.

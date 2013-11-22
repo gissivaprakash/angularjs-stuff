@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="ngBoilerplate" ng-controller="AppCtrl">
   <head>
-    <title>ng-boilerplate</title>
+    <title ng-bind="pageTitle"></title>
 
     <!-- social media tags -->
     <meta name="twitter:card" content="summary">
@@ -22,11 +22,7 @@
     <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
     <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
 
-    <!--[if IE 7>
-    <link rel="stylesheet" href="assets/font-awesome-ie7.min.css />
-    <![endif]-->
-
-    <!-- compiled CSS --><% scripts.forEach( function ( file ) { %>
+    <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
     <script type="text/javascript" src="<%= file %>"></script><% }); %>
 
     <!-- it's stupid to have to load it here, but this is for the +1 button -->
