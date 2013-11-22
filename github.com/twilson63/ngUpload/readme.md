@@ -2,7 +2,7 @@
 
 An AngularJS file upload directive.  
 
-## 0.3.11 - for updates see CHANGELOG.md
+## 0.4.0 - for updates see CHANGELOG.md
 
 ``` html
    <form ng-upload action="/upload-full-form">
@@ -60,7 +60,6 @@ app.controller('Example5Ctrl', function ($scope) {
 ## Requirements
 
 * AngularJS (http://angularjs.org)
-* JQuery (http://jquery.org)
 
 ## Install with Bower
 
@@ -142,11 +141,16 @@ angular.module('app', ['ngUpload'])
 });
 ```
 
+* Working in IE
+
+In order, for ngUpload to respond correctly for IE, your server needs to return the response back as `html/text` not `application/json`
+
+
 ## Directive Options
 
 ### ngUpload
 
-* `upload-options-rails-csrf`: Turns on support for [Rails' CSRF](http://guides.rubyonrails.org/security.html#cross-site-request-forgery-csrf) 
+* `upload-options-enable-rails-csrf`: Turns on support for [Rails' CSRF](http://guides.rubyonrails.org/security.html#cross-site-request-forgery-csrf) 
                                by adding a hidden form field with the csrf token.
 
 ### uploadSubmit
@@ -167,9 +171,9 @@ Needs Chrome Installed.
 
 ``` sh
 npm install
-npm install testacular -g
+npm install grunt-cli -g
 
-testacular start
+npm test
 ```
 
 ## jshint
@@ -213,6 +217,9 @@ please use the following style guidelines
 * Chris Tesene (https://github.com/ctesene)
 * denyo (https://github.com/denyo)
 * mguymon (https://github.com/mguymon)
+* marek-stoj (https://github.com/marek-stoj)
+* Robert Coker (https://github.com/intelekshual)
+* Michael Guymon (https://github.com/mguymon)
 
 ## Thanks
 

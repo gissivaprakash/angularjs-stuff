@@ -25,6 +25,19 @@
 //
 angular.module('ngUpload', [])
     .directive('uploadSubmit', ['$parse', function($parse) {
+        // Utility function to get the closest parent element with a given tag
+        function getParentNodeByTagName(element, tagName) {
+            element = angular.element(element);
+            var parent = element.parent();
+            tagName = tagName.toLowerCase();
+
+            if ( parent && parent[0].tagName.toLowerCase() === tagName ) {
+                return parent;
+            } else {
+                return !parent ? null : getParentNodeByTagName(parent, tagName);
+            }
+        }
+
         return {
             restrict: 'AC',
             link: function(scope, element, attrs) {
@@ -45,8 +58,12 @@ angular.module('ngUpload', [])
                     options.convertHidden = attrs.uploadOptionsConvertHidden != "false";
                 }
 
-                // submit the form - requires jQuery
-                var form = angular.element(element).parents('form');
+                if (attrs.hasOwnProperty( "uploadOptionBeforeSubmit" ) ) {
+                    options.beforeSubmitCallback = attrs.uploadOptionBeforeSubmit;
+                }
+
+                // submit the form 
+                var form = getParentNodeByTagName(element, 'form');
 
                 // Retrieve the callback function
                 var fn = $parse(attrs.uploadSubmit);
@@ -59,11 +76,22 @@ angular.module('ngUpload', [])
                 element.bind('click', function($event) {
                     // prevent default behavior of click
                     if ($event) {
-                        $event.preventDefault = true;
+                       $event.preventDefault();
                     }
 
                     if (element.attr('disabled')) {
                         return;
+                    }
+
+                    if ( undefined !== options.beforeSubmitCallback ) {
+                        var continueSubmit = scope.$apply(function () {
+                            return scope[options.beforeSubmitCallback](scope, $event);
+                        });
+
+                        // If beforeSubmit callback returns false, skip
+                        if ( continueSubmit === false ) {
+                            return false;
+                        }
                     }
 
                     // create a new iframe
@@ -74,10 +102,16 @@ angular.module('ngUpload', [])
 
                     // attach function to load event of the iframe
                     iframe.bind('load', function () {
-                        // get content - requires jQuery
-                        var content = iframe.contents().find('body').html();
+                        // get content using native DOM. use of jQuery to retrieve content triggers IE bug 
+                        // http://bugs.jquery.com/ticket/13936
+                        var nativeIframe = iframe[0];
+                        var iFrameDoc = nativeIframe.contentDocument || nativeIframe.contentWindow.document;
+
+                        // Cross browser text (sans html) retrieval from the iframe - http://www.quirksmode.org/dom/w3c_html.html
+                        var content = iFrameDoc.body.innerText || iFrameDoc.body.textContent;
+
                         try {
-                            content = $.parseJSON(iframe.contents().find('body').text());
+                            content = JSON.parse(content);
                         } catch (e) {
                             if (console) { console.log('WARN: XHR response is not valid json'); }
                         }
@@ -117,18 +151,37 @@ angular.module('ngUpload', [])
 
                     // If convertHidden option is enabled, set the value of hidden fields to the eval of the ng-model
                     if (options.convertHidden) {
-                        form.find(':hidden[ng-model]').each( function() {
-                            $(this).attr('value', scope.$eval( $(this).attr('ng-model') ));
+                        angular.forEach(form.find('input'), function(element) {
+                            element = angular.element(element);
+                            if (element.attr('ng-model') &&
+                                element.attr('type') &&
+                                element.attr('type') == 'hidden') {
+                                element.attr('value', scope.$eval(element.attr('ng-model')));
+                            }
                         });
                     }
 
-                    form.submit();
+                    form[0].submit();
 
                 }).attr('title', 'Click to start upload.');
             }
         };
     }])
-    .directive('ngUpload', ['$parse', function ($parse) {
+    .directive('ngUpload', ['$parse', '$document', function ($parse, $document) {
+        // Utility function to get meta tag with a given name attribute
+        function getMetaTagWithName(name) {
+            var head = $document.find('head');
+            var match;
+
+            angular.forEach(head.find('meta'), function(element) {
+                if ( element.getAttribute('name') === name ) {
+                    match = element;
+                }
+            });
+
+            return angular.element(match);
+        }
+
         return {
             restrict: 'AC',
             link: function (scope, element, attrs) {
@@ -156,13 +209,13 @@ angular.module('ngUpload', [])
 
                 // If enabled, add csrf hidden input to form
                 if ( options.enableRailsCsrf ) {
-                    $("<input />")
-                        .attr("id", "upload-csrf-token")
-                        .attr("type", "hidden")
-                        .attr("name", $('meta[name=csrf-param]').attr('content') )
-                        .val( $('meta[name=csrf-token]').attr('content') )
-                        .appendTo(element);
+                    var input = angular.element("<input />");
+                        input.attr("class", "upload-csrf-token");
+                        input.attr("type", "hidden");
+                        input.attr("name", getMetaTagWithName('csrf-param').attr('content'));
+                        input.val(getMetaTagWithName('csrf-token').attr('content'));
 
+                    element.append(input);
                 }
             }
         };
