@@ -1,5 +1,5 @@
 function parseStateRef(ref) {
-  var parsed = ref.match(/^([^(]+?)\s*(\((.*)\))?$/);
+  var parsed = ref.replace(/\n/g, " ").match(/^([^(]+?)\s*(\((.*)\))?$/);
   if (!parsed || parsed.length !== 4) throw new Error("Invalid state ref '" + ref + "'");
   return { state: parsed[1], paramExpr: parsed[3] || null };
 }
@@ -10,15 +10,21 @@ function $StateRefDirective($state) {
     restrict: 'A',
     link: function(scope, element, attrs) {
       var ref = parseStateRef(attrs.uiSref);
-      var params = null, url = null;
+      var params = null, url = null, base = $state.$current;
       var isForm = element[0].nodeName === "FORM";
       var attr = isForm ? "action" : "href", nav = true;
+
+      var stateData = element.parent().inheritedData('$uiView');
+
+      if (stateData && stateData.state && stateData.state.name) {
+        base = stateData.state;
+      }
 
       var update = function(newVal) {
         if (newVal) params = newVal;
         if (!nav) return;
 
-        var newHref = $state.href(ref.state, params, { lossy: true });
+        var newHref = $state.href(ref.state, params, { relative: base });
 
         if (!newHref) {
           nav = false;
@@ -29,7 +35,7 @@ function $StateRefDirective($state) {
 
       if (ref.paramExpr) {
         scope.$watch(ref.paramExpr, function(newVal, oldVal) {
-          if (newVal !== oldVal) update(newVal);
+          if (newVal !== params) update(newVal);
         }, true);
         params = scope.$eval(ref.paramExpr);
       }
@@ -38,8 +44,10 @@ function $StateRefDirective($state) {
       if (isForm) return;
 
       element.bind("click", function(e) {
-        if ((e.which == 1) && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
-          $state.transitionTo(ref.state, params);
+        var button = e.which || e.button;
+
+        if ((button == 1) && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
+          $state.go(ref.state, params, { relative: base });
           scope.$apply();
           e.preventDefault();
         }
@@ -48,4 +56,4 @@ function $StateRefDirective($state) {
   };
 }
 
-angular.module('ui.state').directive('uiSref', $StateRefDirective);
+angular.module('ui.router.state').directive('uiSref', $StateRefDirective);
