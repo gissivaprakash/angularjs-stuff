@@ -8,7 +8,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-karma');
-  
+
   // Project configuration.
   grunt.initConfig({
     builddir: 'build',
@@ -25,7 +25,12 @@ module.exports = function (grunt) {
     clean: [ '<%= builddir %>' ],
     concat: {
       options: {
-        banner: '<%= meta.banner %>\n(function (window, angular, undefined) {\n',
+        banner: '<%= meta.banner %>\n\n'+
+                '/* commonjs package manager support (eg componentjs) */\n'+
+                'if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){\n'+
+                '  module.exports = \'ui.router\';\n'+
+                '}\n\n'+
+                '(function (window, angular, undefined) {\n',
         footer: '})(window, window.angular);'
       },
       build: {
@@ -36,6 +41,7 @@ module.exports = function (grunt) {
           'src/urlMatcherFactory.js',
           'src/urlRouter.js',
           'src/state.js',
+          'src/view.js',
           'src/viewDirective.js',
           'src/stateDirectives.js',
           'src/compat.js'
@@ -69,7 +75,13 @@ module.exports = function (grunt) {
       tasks: ['build', 'karma:background:run']
     },
     connect: {
-      server: {}
+      server: {},
+      sample: {
+        options:{
+          port: 5555,
+          keepalive: true
+        }
+      }
     },
   karma: {
     options: {
@@ -89,7 +101,8 @@ module.exports = function (grunt) {
   grunt.registerTask('build', 'Perform a normal build', ['concat', 'uglify']);
   grunt.registerTask('dist', 'Perform a clean build and generate documentation', ['clean', 'build', 'jsdoc']);
   grunt.registerTask('release', 'Tag and perform a release', ['prepare-release', 'dist', 'perform-release']);
-  grunt.registerTask('dev', 'Run dev server and watch for changes', ['build', 'connect', 'karma:background', 'watch']);
+  grunt.registerTask('dev', 'Run dev server and watch for changes', ['build', 'connect:server', 'karma:background', 'watch']);
+  grunt.registerTask('sample', 'Run connect server with keepalive:true for sample app development', ['connect:sample']);
 
   grunt.registerTask('jsdoc', 'Generate documentation', function () {
     promising(this,
@@ -116,8 +129,10 @@ module.exports = function (grunt) {
 
   grunt.registerTask('prepare-release', function () {
     var bower = grunt.file.readJSON('bower.json'),
+        component = grunt.file.readJSON('component.json'),
         version = bower.version;
     if (version != grunt.config('pkg.version')) throw 'Version mismatch in bower.json';
+    if (version != component.version) throw 'Version mismatch in component.json';
 
     promising(this,
       ensureCleanMaster().then(function () {
@@ -136,7 +151,7 @@ module.exports = function (grunt) {
     var version = grunt.config('pkg.version'), releasedir = grunt.config('builddir');
     promising(this,
       system('git add \'' + releasedir + '\'').then(function () {
-        return system('git commit -m \'release ' + version + '\'');  
+        return system('git commit -m \'release ' + version + '\'');
       }).then(function () {
         return system('git tag \'' + version + '\'');
       })

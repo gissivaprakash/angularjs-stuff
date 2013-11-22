@@ -20,6 +20,26 @@ describe("UrlMatcher", function () {
     expect(params).toContain('to');
   });
 
+  it("handles proper snake case parameter names", function(){
+    var matcher = new UrlMatcher('/users/?from&to&snake-case&snake-case-triple');
+    var params = matcher.parameters();
+    expect(params.length).toBe(4);
+    expect(params).toContain('from');
+    expect(params).toContain('to');
+    expect(params).toContain('snake-case');
+    expect(params).toContain('snake-case-triple');
+  });
+
+    it("handles invalid snake case parameter names", function(){
+        expect(function() { new UrlMatcher('/users/?from&to&-snake'); }).toThrow(
+            "Invalid parameter name '-snake' in pattern '/users/?from&to&-snake'"
+        );
+
+        expect(function() { new UrlMatcher('/users/?from&to&snake-'); }).toThrow(
+            "Invalid parameter name 'snake-' in pattern '/users/?from&to&snake-'"
+        );
+    });
+
   it(".exec() captures parameter values", function () {
     expect(
       new UrlMatcher('/users/:id/details/{type}/{repeat:[0-9]+}?from&to')
@@ -77,6 +97,13 @@ describe("UrlMatcher", function () {
     expect(new UrlMatcher('/users/:id').format({ id:'100%'})).toEqual('/users/100%25');
   });
 
+  it(".format() encodes URL parameters with hashes", function () {
+    expect(
+      new UrlMatcher('/users/:id#:section')
+        .format({ id: 'bob', section: 'contact-details' }))
+    .toEqual('/users/bob#contact-details');
+  });
+
   it(".concat() concatenates matchers", function () {
     var matcher = new UrlMatcher('/users/:id/details/{type}?from').concat('/{repeat:[0-9]+}?to');
     var params = matcher.parameters();
@@ -99,7 +126,7 @@ describe("urlMatcherFactory", function () {
   
   var $umf;
 
-  beforeEach(module('ui.util'));
+  beforeEach(module('ui.router.util'));
   beforeEach(inject(function($urlMatcherFactory) {
     $umf = $urlMatcherFactory;
   }));

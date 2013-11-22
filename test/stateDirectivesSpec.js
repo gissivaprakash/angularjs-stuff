@@ -1,53 +1,73 @@
 describe('uiStateRef', function() {
 
-  beforeEach(module('ui.state'));
+  var el, template, scope, document;
+
+  beforeEach(module('ui.router'));
 
   beforeEach(module(function($stateProvider) {
     $stateProvider.state('index', {
       url: '/'
     }).state('contacts', {
-      url: '/contacts'
+      url: '/contacts',
+      template: '<a ui-sref=".item({ id: 5 })" class="item">Person</a> <ui-view></ui-view>'
     }).state('contacts.item', {
-      url: '/:id'
-    }).state('contacts.item.detail', {});
+      url: '/:id',
+      template: '<a ui-sref=".detail" class="item-detail">Detail</a> | <a ui-sref="^" class="item-parent">Parent</a> | <ui-view></ui-view>'
+    }).state('contacts.item.detail', {
+      template: '<div class="title">Detail</div> | <a ui-sref="^" class="item-parent2">Item</a>'
+    });
   }));
 
-  describe('links', function() {
-    var el, scope, document;
+  beforeEach(inject(function($document) {
+    document = $document[0];
+  }));
 
-    beforeEach(inject(function($document) {
-      document = $document[0];
+  function triggerClick(el, options) {
+    options = angular.extend({
+      metaKey:  false,
+      ctrlKey:  false,
+      shiftKey: false,
+      altKey:   false,
+      button:   0
+    }, options || {});
+
+    var e = document.createEvent("MouseEvents");
+    e.initMouseEvent(
+      "click", // typeArg of type DOMString, Specifies the event type.
+      true, // canBubbleArg of type boolean, Specifies whether or not the event can bubble.
+      true, // cancelableArg of type boolean, Specifies whether or not the event's default action can be prevented.
+      undefined, // viewArg of type views::AbstractView, Specifies the Event's AbstractView.
+      0, // detailArg of type long, Specifies the Event's mouse click count.
+      0, // screenXArg of type long, Specifies the Event's screen x coordinate
+      0, // screenYArg of type long, Specifies the Event's screen y coordinate
+      0, // clientXArg of type long, Specifies the Event's client x coordinate
+      0, // clientYArg of type long, Specifies the Event's client y coordinate
+      options.ctrlKey, // ctrlKeyArg of type boolean, Specifies whether or not control key was depressed during the Event.
+      options.altKey, // altKeyArg of type boolean, Specifies whether or not alt key was depressed during the Event.
+      options.shiftKey, // shiftKeyArg of type boolean, Specifies whether or not shift key was depressed during the Event.
+      options.metaKey, // metaKeyArg of type boolean, Specifies whether or not meta key was depressed during the Event.
+      options.button, // buttonArg of type unsigned short, Specifies the Event's mouse button.
+      null // relatedTargetArg of type EventTarget
+    );
+    el[0].dispatchEvent(e);
+  }
+
+  describe('links with promises', function() {
+    it('should update the href when promises on parameters change before scope is applied', inject(function($rootScope, $compile, $q) {
+      promise = $q.defer()
+      el = angular.element('<a ui-sref="contacts.item.detail({ id: contact.id })">Details</a>');
+      scope = $rootScope;
+      scope.contact = promise.promise;
+      promise.resolve({id: 6});
+      scope.$apply();
+      $compile(el)(scope);
+      scope.$digest();
+
+      expect(el.attr('href')).toBe('#/contacts/6');
     }));
+  });
 
-    function triggerClick(el, options) {
-      options = angular.extend({
-        metaKey:  false,
-        ctrlKey:  false,
-        shiftKey: false,
-        altKey:   false,
-        button:   0
-      }, options || {});
-
-      var e = document.createEvent("MouseEvents");
-      e.initMouseEvent(
-        "click", // typeArg of type DOMString, Specifies the event type.
-        true, // canBubbleArg of type boolean, Specifies whether or not the event can bubble.
-        true, // cancelableArg of type boolean, Specifies whether or not the event's default action can be prevented.
-        undefined, // viewArg of type views::AbstractView, Specifies the Event's AbstractView.
-        0, // detailArg of type long, Specifies the Event's mouse click count.
-        0, // screenXArg of type long, Specifies the Event's screen x coordinate
-        0, // screenYArg of type long, Specifies the Event's screen y coordinate
-        0, // clientXArg of type long, Specifies the Event's client x coordinate
-        0, // clientYArg of type long, Specifies the Event's client y coordinate
-        options.ctrlKey, // ctrlKeyArg of type boolean, Specifies whether or not control key was depressed during the Event.
-        options.altKey, // altKeyArg of type boolean, Specifies whether or not alt key was depressed during the Event.
-        options.shiftKey, // shiftKeyArg of type boolean, Specifies whether or not shift key was depressed during the Event.
-        options.metaKey, // metaKeyArg of type boolean, Specifies whether or not meta key was depressed during the Event.
-        options.button, // buttonArg of type unsigned short, Specifies the Event's mouse button.
-        null // relatedTargetArg of type EventTarget
-      );
-      el[0].dispatchEvent(e);
-    }
+  describe('links', function() {
 
     beforeEach(inject(function($rootScope, $compile) {
       el = angular.element('<a ui-sref="contacts.item.detail({ id: contact.id })">Details</a>');
@@ -59,7 +79,6 @@ describe('uiStateRef', function() {
       scope.$digest();
     }));
 
-
     it('should generate the correct href', function() {
       expect(el.attr('href')).toBe('#/contacts/5');
     });
@@ -70,6 +89,16 @@ describe('uiStateRef', function() {
       scope.$apply();
       expect(el.attr('href')).toBe('#/contacts/6');
     });
+
+    it('should allow multi-line attribute values', inject(function($compile, $rootScope) {
+      el = angular.element("<a ui-sref=\"contacts.item.detail({\n\tid: $index\n})\">Details</a>");
+      $rootScope.$index = 3;
+      $rootScope.$apply();
+
+      $compile(el)($rootScope);
+      $rootScope.$digest();
+      expect(el.attr('href')).toBe('#/contacts/3');
+    }));
 
     it('should transition states when left-clicked', inject(function($state, $stateParams, $document, $q) {
       expect($state.$current.name).toEqual('');
@@ -137,5 +166,54 @@ describe('uiStateRef', function() {
     it('should generate the correct action', function() {
       expect(el.attr('action')).toBe('#/contacts/5');
     });
+  });
+
+  describe('relative transitions', function() {
+
+    beforeEach(inject(function($rootScope, $compile, $state) {
+      $state.transitionTo("contacts.item", { id: 5 });
+      el = angular.element('<a ui-sref=".detail">Details</a>');
+      scope = $rootScope;
+      scope.$apply();
+
+      $compile(el)(scope);
+      template = $compile(angular.element('<ui-view></ui-view>'))(scope);
+      scope.$digest();
+    }));
+
+    it('should work', inject(function ($state, $stateParams, $q) {
+      triggerClick(el);
+      $q.flush();
+
+      expect($state.$current.name).toBe("contacts.item.detail");
+      expect($state.params).toEqual({ id: '5' });
+    }));
+
+    it('should resolve states from parent uiView', inject(function ($state, $stateParams, $q) {
+      $state.transitionTo('contacts');
+      $q.flush();
+
+      var parentToChild = angular.element(template[0].querySelector('a.item'));
+      triggerClick(parentToChild);
+      $q.flush();
+
+      var childToGrandchild = angular.element(template[0].querySelector('a.item-detail'));
+      var childToParent = angular.element(template[0].querySelector('a.item-parent'));
+
+      triggerClick(childToGrandchild);
+      $q.flush();
+
+      var grandchildToParent = angular.element(template[0].querySelector('a.item-parent2'));
+      expect($state.$current.name).toBe("contacts.item.detail")
+
+      triggerClick(grandchildToParent);
+      $q.flush();
+      expect($state.$current.name).toBe("contacts.item");
+
+      $state.transitionTo("contacts.item.detail", { id: 3 });
+      triggerClick(childToParent);
+      $q.flush();
+      expect($state.$current.name).toBe("contacts");
+    }));
   });
 });
