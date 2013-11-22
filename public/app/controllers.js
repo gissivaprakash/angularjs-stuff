@@ -28,7 +28,7 @@
 
     $scope.sortField = null
     $scope.sortAscending = false
-    $scope.operatingSystems = {"linux": "Linux", "mswin": "Windows"}
+    $scope.operatingSystems = {"linux": "Linux", "mswin": "Windows", "rhel": "Red Hat", "sles": "SUSE"}
     $scope.selectedOs = null
     $scope.periods = ["hourly", "daily", "weekly", "monthly", "yearly"]
     $scope.selectedPeriod = null
@@ -138,8 +138,8 @@
       tracker.trackEvent("Sort By Column", f)
     }
 
-    $scope.calculatedPrice = function (instanceType) {
-      var basePrice = instanceType.on_demand_pricing[$scope.selectedOs]
+    $scope.calculatedPrice = function (pricing) {
+      var basePrice = pricing[$scope.selectedOs]
       var multiplier = PERIOD_MULTIPLIERS[$scope.selectedPeriod]
       var price = basePrice * multiplier
       // var decimals = Math.max(0, 3 - Math.floor(Math.log(multiplier)/Math.log(10)))
@@ -157,12 +157,20 @@
       }
     }
 
+    $scope.onDemandPrice = function (instanceType) {
+      return $scope.calculatedPrice(instanceType.on_demand_pricing)
+    }
+
     $scope.spotPrice = function (instanceType) {
       if (spotInstancePricingByRegion) {
         var instanceTypePricing = spotInstancePricingByRegion[$scope.selectedRegion][instanceType.api_name]
-        return instanceTypePricing && $scope.calculatedPrice({on_demand_pricing: instanceTypePricing})
+        return instanceTypePricing && $scope.calculatedPrice(instanceTypePricing)
       }
       return null
+    }
+
+    $scope.emrPrice = function (instanceType) {
+      return $scope.calculatedPrice(instanceType.emr_pricing || {})
     }
 
     $scope.inspectInstanceType = function (instanceType) {
@@ -184,10 +192,18 @@
       $timeout(arguments.callee, 5000)
     }
 
+    var removeInstancesWithoutPrice = function (instanceTypesByRegion) {
+      instanceTypesByRegion.forEach(function (region) {
+        region.instance_types = region.instance_types.filter(function (instanceType) {
+          return "on_demand_pricing" in instanceType
+        })
+      })
+      return instanceTypesByRegion
+    }
+
     instanceTypesLoader.instanceTypesByRegion()
       .then(function (loadedInstanceTypesByRegion) {
-        instanceTypesByRegion = loadedInstanceTypesByRegion
-
+        instanceTypesByRegion = removeInstancesWithoutPrice(loadedInstanceTypesByRegion)
         $scope.lastUpdated = new Date() // TODO
         $scope.regions = _.map(instanceTypesByRegion, function (region) { return region.region }).sort()
       })

@@ -23,10 +23,14 @@ module Ec2Pricing
 
     def parse_instance_types(instance_family_data)
       instance_family_data['sizes'].map do |instance_type_data|
-        size = SIZE_MAP[instance_type_data['size']]
-        family = FAMILY_MAP[instance_family_data['type']]
-        family = 'cc1' if family == 'cc2' && size == '4xlarge'
-        api_name = "#{family}.#{size}"
+        if instance_type_data['size'].index('.')
+          api_name = instance_type_data['size']
+        else
+          size = SIZE_MAP[instance_type_data['size']]
+          family = FAMILY_MAP[instance_family_data['type']]
+          family = 'cc1' if family == 'cc2' && size == '4xlarge'
+          api_name = "#{family}.#{size}"
+        end
         {
           :api_name => api_name,
           :pricing => parse_pricing(instance_type_data['valueColumns'])
@@ -35,7 +39,12 @@ module Ec2Pricing
     end
 
     def parse_pricing(pricing_data)
-      Hash[pricing_data.group_by { |d| d['name'].to_sym }.map { |k, vs| [k, vs.first['prices']['USD'].to_f] }]
+      pricing = Hash[pricing_data.group_by { |d| d['name'].to_sym }.map { |k, vs| [k, vs.first['prices']['USD'].to_f] }]
+      if pricing.include?(:emr)
+        pricing.delete(:ec2)
+        pricing[:linux] = pricing.delete(:emr)
+      end
+      pricing
     end
 
     REGION_MAP = {
@@ -58,6 +67,7 @@ module Ec2Pricing
       'clusterComputeI' => 'cc2', # except the discontinued 4xlarge which is 'cc1'
       'clusterGPUI'     => 'cg1',
       'hiIoODI'         => 'hi1',
+      'hiIOODI'         => 'hi1',
       'hiStoreODI'      => 'hs1',
       'clusterHiMemODI' => 'cr1',
 
