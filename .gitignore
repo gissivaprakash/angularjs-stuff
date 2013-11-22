@@ -1,5 +1,5 @@
-.DS_Store
-dist/
-dist_test/
-node_modules/
 .temp/
+bower_components/
+dist/
+node_modules/
+test-results.xml

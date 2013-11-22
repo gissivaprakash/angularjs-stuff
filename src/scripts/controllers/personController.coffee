@@ -1,16 +1,22 @@
-angular.module('app').controller 'personController', ['$log', '$scope', '$location', 'personService', ($log, $scope, $location, personService) ->
-	$scope.people = []
+class PersonController
+	constructor: ($log, $location, personService) ->
+		setPeople = =>
+			personService.get().then (results) =>
+				@people = results
 
-	$scope.insertPerson = (person) ->
-		personService.save(person).then (results) ->
-			$scope.error = ''
-			$scope.person = {}
+		@insertPerson = (person) =>
+			personService.save(person)
+			.success (results) =>
+				@error = ''
+				@person = {}
 
-			$scope.people.push results
-			$location.path "/people/#{results.id}"
-		, (results) ->
-			($scope.error = results.data) if results.status is 403
+				setPeople()
+			.error (results, status) =>
+				if status is 403
+					@error = results
+			.then (results) ->
+				results
 
-	personService.get().then (results) ->
-		$scope.people = results
-]
+		setPeople()
+
+angular.module('app').controller 'personController', ['$log', '$location', 'personService', PersonController]

@@ -1,22 +1,12 @@
-angular.module('app').service 'gitHubService', ['$log', '$q', '$resource', 'messageService', ($log, $q, $resource, messageService) ->
-	self = @
+class GitHubService
+	constructor: ($log, $http, messageService) ->
+		GitHubService::get = (criteria) ->
+			$http.jsonp("https://api.github.com/users/#{criteria}/repos", params: callback: 'JSON_CALLBACK')
+			.success (results) ->
+				messageService.publish 'search', source: 'GitHub', criteria: criteria
+			.error (results) ->
+				$log.error 'gitHubService error', results
+			.then (results) ->
+				results.data.data
 
-	Repo = $resource 'https://api.github.com/users/:user/repos',
-		callback: 'JSON_CALLBACK',
-			get:
-				method: 'JSONP'
-
-	get = (criteria) ->
-		defer = $q.defer()
-
-		Repo.get user: criteria, (results) ->
-			messageService.publish 'search', source: 'GitHub', criteria: criteria
-			defer.resolve results.data
-		, (results) ->
-			$log.error 'gitHubService error', results
-			defer.reject results
-
-		defer.promise
-
-	self.get = get
-]
+angular.module('app').service 'gitHubService', ['$log', '$http', 'messageService', GitHubService]
