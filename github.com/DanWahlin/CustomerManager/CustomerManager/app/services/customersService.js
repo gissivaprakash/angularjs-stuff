@@ -2,11 +2,7 @@
 
 define(['app'], function (app) {
 
-    //This handles retrieving data and is used by controllers. 3 options (server, factory, provider) with 
-    //each doing the same thing just structuring the functions/data differently.
-
-    //Although this is an AngularJS factory I prefer the term "service" for data operations
-    app.factory('customersService', ['$http', '$q', function ($http, $q) {
+    var customersService = function ($http, $q) {
         var serviceBase = '/api/dataservice/',
             customers = null,
             customersFactory = {};
@@ -23,7 +19,7 @@ define(['app'], function (app) {
             return $http.get(serviceBase + 'states').then(
                 function (results) {
                     return results.data;
-                });                
+                });
         }
 
         customersFactory.checkUniqueValue = function (id, property, value) {
@@ -71,6 +67,8 @@ define(['app'], function (app) {
             //Iterate through customers
             for (var i = 0; i < custsLen; i++) {
                 var cust = customers[i];
+                if (!cust.orders) cust.orders = [];
+
                 var ordersLen = cust.orders.length;
                 for (var j = 0; j < ordersLen; j++) {
                     var order = cust.orders[j];
@@ -83,10 +81,12 @@ define(['app'], function (app) {
         function getPagedResource(baseResource, pageIndex, pageSize) {
             var resource = baseResource;
             resource += (arguments.length == 3) ? buildPagingUri(pageIndex, pageSize) : '';
-            return $http.get(serviceBase + resource).then(function (data) {
+            return $http.get(serviceBase + resource).then(function (response) {
+                var custs = response.data;
+                extendCustomers(custs);
                 return {
-                    totalRecords: parseInt(data.headers('X-InlineCount')),
-                    results: data.data
+                    totalRecords: parseInt(response.headers('X-InlineCount')),
+                    results: custs
                 };
             });
         }
@@ -95,7 +95,7 @@ define(['app'], function (app) {
             var uri = '?$top=' + pageSize + '&$skip=' + (pageIndex * pageSize);
             return uri;
         }
-        
+
 
         function orderTotal(order) {
             return order.quantity * order.price;
@@ -114,6 +114,8 @@ define(['app'], function (app) {
 
         return customersFactory;
 
-    }]);
+    };
+
+    app.factory('customersService', ['$http', '$q', customersService]);
 
 });
